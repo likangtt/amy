@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import cn from "classnames";
 
 type AdUnitProps = {
@@ -20,8 +20,6 @@ export function AdUnit({
   style,
   responsive = true,
 }: AdUnitProps) {
-  const adRef = useRef<HTMLElement>(null);
-
   useEffect(() => {
     // 确保只在客户端执行
     if (typeof window !== "undefined") {
@@ -59,7 +57,6 @@ export function AdUnit({
         data-ad-slot={adSlot}
         data-ad-format={adFormat}
         data-full-width-responsive={responsive ? "true" : "false"}
-        ref={adRef}
       />
       <div className="text-xs text-gray-400 text-center mt-1">广告</div>
     </div>
