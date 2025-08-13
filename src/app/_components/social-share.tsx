@@ -4,18 +4,20 @@ import { useState, useEffect } from 'react';
 
 interface SocialShareProps {
   title: string;
-  url: string;
+  url?: string;
+  className?: string;
 }
 
-export function SocialShare({ title, url }: SocialShareProps) {
+export function SocialShare({ title, url, className }: SocialShareProps) {
   const [copied, setCopied] = useState(false);
   
   // 构建完整的URL - 使用useEffect确保只在客户端执行
-  const [fullUrl, setFullUrl] = useState(url);
+  const [fullUrl, setFullUrl] = useState(url || '');
   
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      setFullUrl(`${window.location.origin}${url}`);
+      const currentUrl = url || window.location.pathname;
+      setFullUrl(`${window.location.origin}${currentUrl}`);
     }
   }, [url]);
   
@@ -36,7 +38,7 @@ export function SocialShare({ title, url }: SocialShareProps) {
   };
   
   return (
-    <div className="social-share">
+    <div className={`social-share ${className || ''}`}>
       <h3 className="text-xl font-bold mb-3">Share This Article</h3>
       <div className="flex flex-wrap gap-2">
         <a 
