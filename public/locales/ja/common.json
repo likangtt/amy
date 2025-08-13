@@ -1,0 +1,18 @@
+{
+  "home": "ホーム",
+  "about": "私たちについて",
+  "contact": "お問い合わせ",
+  "privacy": "プライバシーポリシー",
+  "more": "続きを読む",
+  "share": "シェア",
+  "language": "言語",
+  "theme": "テーマ",
+  "dark": "ダーク",
+  "light": "ライト",
+  "search": "検索",
+  "subscribe": "購読",
+  "footer": {
+    "rights": "全著作権所有",
+    "powered": "Next.jsを使用"
+  }
+}

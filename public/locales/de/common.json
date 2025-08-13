@@ -1,0 +1,18 @@
+{
+  "home": "Startseite",
+  "about": "Über uns",
+  "contact": "Kontakt",
+  "privacy": "Datenschutzrichtlinie",
+  "more": "Weiterlesen",
+  "share": "Teilen",
+  "language": "Sprache",
+  "theme": "Thema",
+  "dark": "Dunkel",
+  "light": "Hell",
+  "search": "Suchen",
+  "subscribe": "Abonnieren",
+  "footer": {
+    "rights": "Alle Rechte vorbehalten",
+    "powered": "Unterstützt von Next.js"
+  }
+}
