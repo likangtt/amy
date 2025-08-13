@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, Suspense } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 
 const GA_TRACKING_ID = "UA-XXXXXXXXX-X"; // 替换为您的Google Analytics跟踪ID
@@ -13,7 +13,7 @@ declare global {
   }
 }
 
-export function Analytics() {
+function AnalyticsInner() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
@@ -73,4 +73,12 @@ export function Analytics() {
   }, [pathname, searchParams]);
 
   return null; // 这个组件不渲染任何内容
+}
+
+export function Analytics() {
+  return (
+    <Suspense fallback={null}>
+      <AnalyticsInner />
+    </Suspense>
+  );
 }
