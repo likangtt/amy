@@ -5,6 +5,14 @@ import { usePathname, useSearchParams } from "next/navigation";
 
 const GA_TRACKING_ID = "UA-XXXXXXXXX-X"; // 替换为您的Google Analytics跟踪ID
 
+// 添加全局类型声明
+declare global {
+  interface Window {
+    dataLayer: any[];
+    gtag: (...args: any[]) => void;
+  }
+}
+
 export function Analytics() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -23,12 +31,6 @@ export function Analytics() {
           document.head.appendChild(script);
           
           // 初始化Google Analytics
-          // 添加类型声明
-          interface Window {
-            dataLayer: any[];
-            gtag: (...args: any[]) => void;
-          }
-          
           (window as any).dataLayer = (window as any).dataLayer || [];
           function gtag(...args: any[]) {
             (window as any).dataLayer.push(arguments);
