@@ -11,9 +11,9 @@ const nextConfig = {
   experimental: {
     // 这将忽略某些水合不匹配警告
     // 注意：这只是临时解决方案，最好是修复实际的不匹配问题
-    appDir: true,
-    serverComponentsExternalPackages: [],
   },
+  // 移动到顶层配置
+  serverExternalPackages: [],
 };
 
 module.exports = nextConfig;

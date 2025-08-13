@@ -95,7 +95,8 @@ Osaki OS-Pro Maestro是当前市场上最先进的按摩椅之一，配备了3D�
   }
 };
 
-export default function EditArticle({ params }: { params: { id: string } }) {
+// 修改类型定义以符合Next.js 15的要求
+export default function EditArticle({ params }: { params: { id: string } } & { searchParams?: Record<string, string | string[]> }) {
   const router = useRouter();
   const { id } = params;
   
