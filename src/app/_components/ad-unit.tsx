@@ -20,7 +20,7 @@ export function AdUnit({
   style,
   responsive = true,
 }: AdUnitProps) {
-  const adRef = useRef<HTMLDivElement>(null);
+  const adRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     // 确保只在客户端执行
