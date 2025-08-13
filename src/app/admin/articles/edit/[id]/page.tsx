@@ -96,9 +96,9 @@ Osaki OS-Pro Maestro是当前市场上最先进的按摩椅之一，配备了3D�
 };
 
 // 修改类型定义以符合Next.js 15的要求
-export default function EditArticle({ params }: { params: { id: string } } & { searchParams?: Record<string, string | string[]> }) {
+export default function EditArticle({ params }: { params: Promise<{ id: string }> }) {
   const router = useRouter();
-  const { id } = params;
+  const [id, setId] = useState<string>("");
   
   const [article, setArticle] = useState({
     title: "",
@@ -118,8 +118,17 @@ export default function EditArticle({ params }: { params: { id: string } } & { s
   const [saveMessage, setSaveMessage] = useState("");
   const [notFound, setNotFound] = useState(false);
 
+  // 解析params并设置id
+  useEffect(() => {
+    params.then((resolvedParams) => {
+      setId(resolvedParams.id);
+    });
+  }, [params]);
+
   // 加载文章数据
   useEffect(() => {
+    if (!id) return; // 等待id被设置
+    
     try {
       // 尝试从localStorage获取文章
       const savedArticles = localStorage.getItem('blog_articles');
