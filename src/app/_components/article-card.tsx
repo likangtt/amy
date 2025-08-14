@@ -22,7 +22,7 @@ export function ArticleCard({ title, description, imageSrc, imageAlt, href, date
   return (
     <Link href={href} className="block group">
       <div className="bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300 group-hover:shadow-xl">
-        <div className="relative h-48 w-full overflow-hidden bg-gray-100">
+        <div className="relative h-40 w-full overflow-hidden bg-gray-100">
           {isExternal ? (
             // 外部图片使用img标签
             <img
@@ -52,10 +52,10 @@ export function ArticleCard({ title, description, imageSrc, imageAlt, href, date
             </div>
           )}
         </div>
-        <div className="p-4">
-          {date && <p className="text-sm text-gray-500 mb-2">{date}</p>}
-          <h3 className="text-xl font-bold text-blue-600 mb-2 group-hover:text-blue-700">{title}</h3>
-          <p className="text-gray-700">{description}</p>
+        <div className="p-3">
+          {date && <p className="text-xs text-gray-500 mb-1">{date}</p>}
+          <h3 className="text-lg font-bold text-blue-600 mb-1 group-hover:text-blue-700">{title}</h3>
+          <p className="text-sm text-gray-700 line-clamp-2">{description}</p>
         </div>
       </div>
     </Link>
