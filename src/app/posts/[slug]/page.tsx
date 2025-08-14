@@ -39,9 +39,9 @@ export default async function Post(props: Params) {
               
               <SocialShare title={post.title} className="my-6" />
               
-              <BannerAd position="top" className="my-8" />
-              
               <PostBody content={content} />
+              
+              <BannerAd position="top" className="my-8" />
               
               <BannerAd position="bottom" className="my-8" />
               

@@ -219,13 +219,13 @@ export default function ArticlePage() {
             </div>
           )}
           
-          <BannerAd position="top" />
-          
           {/* Article content */}
           <div 
             className="prose max-w-none my-8"
             dangerouslySetInnerHTML={{ __html: markdownToHtml(article.content) }}
           />
+          
+          <BannerAd position="top" className="my-8" />
           
           {/* Tags */}
           {article.tags && article.tags.length > 0 && (
