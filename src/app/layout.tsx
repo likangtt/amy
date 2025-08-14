@@ -7,6 +7,7 @@ import { LanguageSwitcher } from "./_components/language-switcher";
 import { Navigation } from "./_components/navigation";
 import { Analytics } from "./_components/analytics";
 import { BackToTop } from "./_components/back-to-top";
+import { MobileBackButton } from "./_components/mobile-back-button";
 
 import "./globals.css";
 
@@ -72,6 +73,8 @@ export default function RootLayout({
         <div className="fixed top-4 right-4 flex space-x-4 z-10">
           <LanguageSwitcher />
         </div>
+        
+        <MobileBackButton />
         
         <div className="min-h-screen">{children}</div>
         <Footer />
