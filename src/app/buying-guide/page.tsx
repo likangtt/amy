@@ -101,8 +101,6 @@ export default function BuyingGuide() {
             Browse our curated articles on massage chair buying guides to help you find the perfect massage chair for your needs.
           </p>
           
-          <BannerAd position="top" className="mb-10" />
-          
           {loading ? (
             <div className="flex justify-center items-center h-64">
               <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
@@ -110,7 +108,7 @@ export default function BuyingGuide() {
           ) : (
             <>
               {articles.length > 0 ? (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-10">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-10 mx-auto">
                   {articles.map((article) => (
                     <ArticleCard 
                       key={article.id}
@@ -131,6 +129,7 @@ export default function BuyingGuide() {
             </>
           )}
           
+          <BannerAd position="top" className="my-10" />
           <BannerAd position="bottom" className="mt-10" />
         </div>
       </Container>
