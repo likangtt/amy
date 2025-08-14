@@ -2,56 +2,55 @@
 
 import Image from "next/image";
 import { useState } from "react";
+import cn from "classnames";
 
-type GuideImageProps = {
+interface GuideImageProps {
   src: string;
   alt: string;
   width?: number;
   height?: number;
+  className?: string;
+  priority?: boolean;
   caption?: string;
-};
+  lazyBoundary?: string;
+}
 
-export function GuideImage({ src, alt, width = 800, height = 500, caption }: GuideImageProps) {
-  const [isLoaded, setIsLoaded] = useState(false);
-  
-  // 检查src是否为外部URL
-  const isExternal = src.startsWith('http');
-  
+export function GuideImage({
+  src,
+  alt,
+  width = 800,
+  height = 500,
+  className,
+  priority = false,
+  caption,
+  lazyBoundary = "200px",
+}: GuideImageProps) {
+  const [isLoading, setIsLoading] = useState(true);
+
   return (
-    <figure className="my-8">
-      <div className="overflow-hidden rounded-lg shadow-lg bg-gray-100">
-        {isExternal ? (
-          // 外部图片使用img标签
-          <img
-            src={src}
-            alt={alt}
-            className={`w-full h-auto transition-opacity duration-500 ${
-              isLoaded ? 'opacity-100' : 'opacity-0'
-            }`}
-            onLoad={() => setIsLoaded(true)}
-          />
-        ) : (
-          // 本地图片使用Next.js的Image组件
-          <Image
-            src={src}
-            alt={alt}
-            width={width}
-            height={height}
-            className={`w-full h-auto transition-opacity duration-500 ${
-              isLoaded ? 'opacity-100' : 'opacity-0'
-            }`}
-            loading="lazy"
-            onLoad={() => setIsLoaded(true)}
-          />
-        )}
-        {!isLoaded && (
-          <div className="flex items-center justify-center py-20">
-            <div className="h-8 w-8 animate-spin rounded-full border-4 border-gray-300 border-t-blue-600"></div>
-          </div>
-        )}
+    <figure className={cn("overflow-hidden", className)}>
+      <div className={cn(
+        "relative overflow-hidden bg-gray-100 dark:bg-gray-800",
+        isLoading ? "animate-pulse" : ""
+      )}>
+        <Image
+          src={src}
+          alt={alt}
+          width={width}
+          height={height}
+          className={cn(
+            "transition-opacity duration-300 ease-in-out rounded-lg",
+            isLoading ? "opacity-0" : "opacity-100"
+          )}
+          priority={priority}
+          onLoad={() => setIsLoading(false)}
+          loading={priority ? "eager" : "lazy"}
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 75vw, 800px"
+          lazyBoundary={lazyBoundary}
+        />
       </div>
       {caption && (
-        <figcaption className="text-center text-sm text-gray-600 mt-2 italic">
+        <figcaption className="text-sm text-center text-gray-500 mt-2 italic">
           {caption}
         </figcaption>
       )}

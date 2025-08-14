@@ -8,16 +8,42 @@ import { Navigation } from "./_components/navigation";
 import { Analytics } from "./_components/analytics";
 import { BackToTop } from "./_components/back-to-top";
 import { MobileBackButton } from "./_components/mobile-back-button";
+import { SchemaMarkupServer } from "./_components/schema-markup-server";
+import { ResourceHints } from "./_components/resource-hints";
 
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: `Next.js Blog Example with ${CMS_NAME}`,
-  description: `A statically generated blog example using Next.js and ${CMS_NAME}.`,
+  title: `Massage Chair Buying Guide | Professional Reviews & Usage Tips`,
+  description: `Comprehensive massage chair buying guides, professional reviews, and usage tips to help you find the perfect massage chair for improved health and quality of life.`,
+  keywords: "massage chair, massage chair reviews, massage chair buying guide, massage chair usage tips, health living",
   openGraph: {
+    title: "Massage Chair Buying Guide | Professional Reviews & Usage Tips",
+    description: "Comprehensive massage chair buying guides, professional reviews, and usage tips to help you find the perfect massage chair.",
     images: [HOME_OG_IMAGE_URL],
+    type: "website",
+    locale: "en_US",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Massage Chair Buying Guide | Professional Reviews & Usage Tips",
+    description: "Comprehensive massage chair buying guides, professional reviews, and usage tips to help you find the perfect massage chair.",
+    images: [HOME_OG_IMAGE_URL],
+  },
+  alternates: {
+    canonical: "https://www.yourdomain.com",
+    languages: {
+      'en': 'https://www.yourdomain.com/en',
+      'de': 'https://www.yourdomain.com/de',
+      'ja': 'https://www.yourdomain.com/ja',
+      'ar': 'https://www.yourdomain.com/ar',
+      'hi': 'https://www.yourdomain.com/hi',
+    },
+  },
+  verification: {
+    google: "google-site-verification-code",
   },
 };
 
@@ -29,6 +55,12 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        <ResourceHints />
+        <SchemaMarkupServer 
+          title="Massage Chair Buying Guide | Professional Reviews & Usage Tips"
+          description="Comprehensive massage chair buying guides, professional reviews, and usage tips to help you find the perfect massage chair."
+          type="WebSite"
+        />
         <link
           rel="apple-touch-icon"
           sizes="180x180"
@@ -68,7 +100,7 @@ export default function RootLayout({
         )}
         suppressHydrationWarning
       >
-        {/* 顶部标题和导航栏已移除 */}
+        {/* Top title and navigation bar removed */}
         
         <div className="fixed top-4 right-4 flex space-x-4 z-10">
           <LanguageSwitcher />
