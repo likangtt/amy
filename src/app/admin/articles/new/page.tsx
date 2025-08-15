@@ -1,13 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 // 富文本编辑器组件
 const RichTextEditor = ({ value, onChange }: { value: string; onChange: (value: string) => void }) => {
   // 文本区域引用
-  const textareaRef = React.useRef<HTMLTextAreaElement>(null);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
   
   // 插入文本到光标位置
   const insertTextAtCursor = (before: string, after: string = '') => {
