@@ -22,7 +22,7 @@ export function SchemaMarkup({
   type = "WebPage",
 }: SchemaMarkupProps) {
   const pathname = usePathname();
-  const baseUrl = "https://www.yourdomain.com";
+  const baseUrl = "https://www.massagechairreview.shop";
   const url = `${baseUrl}${pathname}`;
   
   // Basic website information

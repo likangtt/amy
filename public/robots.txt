@@ -6,4 +6,4 @@ Disallow: /admin/
 Disallow: /api/
 
 # XML站点地图
-Sitemap: https://www.yourdomain.com/sitemap.xml
+Sitemap: https://www.massagechairreview.shop/sitemap.xml

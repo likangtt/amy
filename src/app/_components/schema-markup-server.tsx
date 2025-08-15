@@ -21,7 +21,7 @@ export function SchemaMarkupServer({
   type = "WebPage",
   url = "",
 }: SchemaMarkupServerProps) {
-  const baseUrl = "https://www.yourdomain.com";
+  const baseUrl = "https://www.massagechairreview.shop";
   const fullUrl = url ? `${baseUrl}${url}` : baseUrl;
   
   // Basic website information
