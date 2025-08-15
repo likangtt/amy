@@ -3,7 +3,7 @@
 import { useEffect, Suspense } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 
-const GA_TRACKING_ID = "UA-XXXXXXXXX-X"; // 替换为您的Google Analytics跟踪ID
+const GA_TRACKING_ID = "G-RFV5XM4YML"; // 您的Google Analytics 4跟踪ID
 
 // 添加全局类型声明
 declare global {
@@ -31,11 +31,11 @@ function AnalyticsInner() {
           document.head.appendChild(script);
           
           // 初始化Google Analytics
-          (window as any).dataLayer = (window as any).dataLayer || [];
+          window.dataLayer = window.dataLayer || [];
           function gtag(...args: any[]) {
-            (window as any).dataLayer.push(arguments);
+            window.dataLayer.push(arguments);
           }
-          (window as any).gtag = gtag;
+          window.gtag = gtag;
           gtag('js', new Date());
           gtag('config', GA_TRACKING_ID);
           
@@ -62,7 +62,6 @@ function AnalyticsInner() {
       try {
         // 当路径或搜索参数变化时发送页面浏览事件
         const url = pathname + (searchParams?.toString() ? `?${searchParams.toString()}` : "");
-        // @ts-ignore
         window.gtag('config', GA_TRACKING_ID, {
           page_path: url,
         });
