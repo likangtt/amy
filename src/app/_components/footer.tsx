@@ -11,9 +11,9 @@ export function Footer() {
         <div className="py-12 md:py-16">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div className="col-span-1 md:col-span-1">
-              <h4 className="text-xl font-bold mb-4">Massage Chair Expert</h4>
+              <h4 className="text-xl font-bold mb-4">Massage Chair Review</h4>
               <p className="text-sm text-gray-600 dark:text-gray-400">
-                Your trusted resource for massage chair expertise, providing professional buying guides and usage tips to help you find the perfect massage chair for comfort and wellness.
+                您值得信赖的按摩椅专业资源，提供专业购买指南和使用技巧，帮助您找到完美的按摩椅，提升舒适度和健康水平。
               </p>
             </div>
             
@@ -38,7 +38,7 @@ export function Footer() {
             <div className="col-span-1">
               <h4 className="text-lg font-bold mb-4">Contact</h4>
               <ul className="space-y-2 text-sm text-gray-600 dark:text-gray-400">
-                <li>Email: info@massagechairexpert.com</li>
+                <li>Email: info@massagechairreview.shop</li>
                 <li>Phone: +1 (555) 123-4567</li>
                 <li>Address: 123 Relaxation Street, Comfort City, CA 90210</li>
               </ul>

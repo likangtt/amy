@@ -175,7 +175,7 @@ export default function Contact() {
             <div className="space-y-4">
               <div>
                 <h3 className="font-semibold">电子邮件</h3>
-                <p>info@yourdomain.com</p>
+                <p>info@massagechairreview.shop</p>
               </div>
               <div>
                 <h3 className="font-semibold">社交媒体</h3>

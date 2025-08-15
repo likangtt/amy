@@ -28,7 +28,7 @@ export function SchemaMarkupServer({
   const websiteSchema = {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    "name": "Massage Chair Buying Guide",
+    "name": "Massage Chair Review",
     "url": baseUrl,
     "potentialAction": {
       "@type": "SearchAction",
@@ -63,7 +63,7 @@ export function SchemaMarkupServer({
       },
       "publisher": {
         "@type": "Organization",
-        "name": "Massage Chair Buying Guide",
+        "name": "Massage Chair Review",
         "logo": {
           "@type": "ImageObject",
           "url": `${baseUrl}/images/logo.png`
