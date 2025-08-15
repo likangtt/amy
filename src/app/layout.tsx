@@ -16,11 +16,11 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: `Massage Chair Buying Guide | Professional Reviews & Usage Tips`,
-  description: `Comprehensive massage chair buying guides, professional reviews, and usage tips to help you find the perfect massage chair for improved health and quality of life.`,
+  title: `Massage Chair Review | Professional Reviews & Usage Tips`,
+  description: `Comprehensive massage chair buying guides, professional reviews, and usage tips to help you find the perfect massage chair and improve your health and quality of life.`,
   keywords: "massage chair, massage chair reviews, massage chair buying guide, massage chair usage tips, health living",
   openGraph: {
-    title: "Massage Chair Buying Guide | Professional Reviews & Usage Tips",
+    title: "Massage Chair Review | Professional Reviews & Usage Tips",
     description: "Comprehensive massage chair buying guides, professional reviews, and usage tips to help you find the perfect massage chair.",
     images: [HOME_OG_IMAGE_URL],
     type: "website",
@@ -28,18 +28,18 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Massage Chair Buying Guide | Professional Reviews & Usage Tips",
+    title: "Massage Chair Review | Professional Reviews & Usage Tips",
     description: "Comprehensive massage chair buying guides, professional reviews, and usage tips to help you find the perfect massage chair.",
     images: [HOME_OG_IMAGE_URL],
   },
   alternates: {
-    canonical: "https://www.yourdomain.com",
+    canonical: "https://www.massagechairreview.shop",
     languages: {
-      'en': 'https://www.yourdomain.com/en',
-      'de': 'https://www.yourdomain.com/de',
-      'ja': 'https://www.yourdomain.com/ja',
-      'ar': 'https://www.yourdomain.com/ar',
-      'hi': 'https://www.yourdomain.com/hi',
+      'en': 'https://www.massagechairreview.shop/en',
+      'de': 'https://www.massagechairreview.shop/de',
+      'ja': 'https://www.massagechairreview.shop/ja',
+      'ar': 'https://www.massagechairreview.shop/ar',
+      'hi': 'https://www.massagechairreview.shop/hi',
     },
   },
   verification: {
@@ -57,7 +57,7 @@ export default function RootLayout({
       <head>
         <ResourceHints />
         <SchemaMarkupServer 
-          title="Massage Chair Buying Guide | Professional Reviews & Usage Tips"
+          title="Massage Chair Review | Professional Reviews & Usage Tips"
           description="Comprehensive massage chair buying guides, professional reviews, and usage tips to help you find the perfect massage chair."
           type="WebSite"
         />
