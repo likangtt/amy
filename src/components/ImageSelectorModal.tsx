@@ -19,14 +19,14 @@ const ImageSelectorModal: React.FC<ImageSelectorModalProps> = ({
   const [activeTab, setActiveTab] = useState<"upload" | "url">("upload");
   const [recentImages, setRecentImages] = useState<string[]>([]);
 
-  // 加载最近使用的图片
+  // Load recently used images
   useEffect(() => {
     const savedImages = localStorage.getItem("recent_images");
     if (savedImages) {
       try {
         setRecentImages(JSON.parse(savedImages));
       } catch (e) {
-        console.error("解析最近图片失败:", e);
+        console.error("Failed to parse recent images:", e);
       }
     }
   }, []);
@@ -41,7 +41,7 @@ const ImageSelectorModal: React.FC<ImageSelectorModalProps> = ({
   // 处理图片选择
   const handleSelectImage = () => {
     if (imageUrl) {
-      onImageSelect(imageUrl, altText || "图片");
+      onImageSelect(imageUrl, altText || "Image");
       saveRecentImage(imageUrl);
       handleClose();
     }
@@ -84,7 +84,7 @@ const ImageSelectorModal: React.FC<ImageSelectorModalProps> = ({
             <div className="sm:flex sm:items-start">
               <div className="mt-3 text-center sm:mt-0 sm:text-left w-full">
                 <h3 className="text-lg leading-6 font-medium text-gray-900 mb-4">
-                  插入图片
+                  Insert Image
                 </h3>
                 
                 {/* 选项卡 */}
@@ -98,7 +98,7 @@ const ImageSelectorModal: React.FC<ImageSelectorModalProps> = ({
                       }`}
                       onClick={() => setActiveTab("upload")}
                     >
-                      上传图片
+                      Upload Image
                     </button>
                     <button
                       className={`py-2 px-4 border-b-2 font-medium text-sm ${
@@ -108,7 +108,7 @@ const ImageSelectorModal: React.FC<ImageSelectorModalProps> = ({
                       }`}
                       onClick={() => setActiveTab("url")}
                     >
-                      图片URL
+                      Image URL
                     </button>
                   </nav>
                 </div>
@@ -121,7 +121,7 @@ const ImageSelectorModal: React.FC<ImageSelectorModalProps> = ({
                     {/* 最近使用的图片 */}
                     {recentImages.length > 0 && (
                       <div className="mt-4">
-                        <h4 className="text-sm font-medium text-gray-700 mb-2">最近使用的图片</h4>
+                        <h4 className="text-sm font-medium text-gray-700 mb-2">Recently Used Images</h4>
                         <div className="grid grid-cols-4 gap-2">
                           {recentImages.map((img, index) => (
                             <div 
@@ -133,10 +133,10 @@ const ImageSelectorModal: React.FC<ImageSelectorModalProps> = ({
                             >
                               <img 
                                 src={img} 
-                                alt="最近使用" 
+                                alt="Recent image" 
                                 className="w-full h-full object-cover"
                                 onError={(e) => {
-                                  (e.target as HTMLImageElement).src = 'https://via.placeholder.com/100?text=加载失败';
+                                  (e.target as HTMLImageElement).src = 'https://via.placeholder.com/100?text=Failed+to+load';
                                 }}
                               />
                             </div>
@@ -152,7 +152,7 @@ const ImageSelectorModal: React.FC<ImageSelectorModalProps> = ({
                   <div className="space-y-4">
                     <div>
                       <label htmlFor="image-url" className="block text-sm font-medium text-gray-700 mb-1">
-                        图片URL
+                        Image URL
                       </label>
                       <input
                         type="text"
@@ -167,14 +167,14 @@ const ImageSelectorModal: React.FC<ImageSelectorModalProps> = ({
                     {/* 图片预览 */}
                     {imageUrl && (
                       <div className="mt-2">
-                        <p className="text-sm font-medium text-gray-700 mb-1">预览</p>
+                        <p className="text-sm font-medium text-gray-700 mb-1">Preview</p>
                         <div className="border rounded p-2">
                           <img 
                             src={imageUrl} 
-                            alt="预览" 
+                            alt="Preview" 
                             className="max-h-40 mx-auto"
                             onError={(e) => {
-                              (e.target as HTMLImageElement).src = 'https://via.placeholder.com/300x150?text=图片加载失败';
+                              (e.target as HTMLImageElement).src = 'https://via.placeholder.com/300x150?text=Image+failed+to+load';
                             }}
                           />
                         </div>
@@ -186,7 +186,7 @@ const ImageSelectorModal: React.FC<ImageSelectorModalProps> = ({
                 {/* 图片描述 */}
                 <div className="mt-4">
                   <label htmlFor="alt-text" className="block text-sm font-medium text-gray-700 mb-1">
-                    图片描述
+                    Image Description
                   </label>
                   <input
                     type="text"
@@ -194,7 +194,7 @@ const ImageSelectorModal: React.FC<ImageSelectorModalProps> = ({
                     className="w-full border border-gray-300 rounded-md px-3 py-2"
                     value={altText}
                     onChange={(e) => setAltText(e.target.value)}
-                    placeholder="描述图片内容（用于SEO和无障碍访问）"
+                    placeholder="Describe image content (for SEO and accessibility)"
                   />
                 </div>
               </div>
@@ -211,14 +211,14 @@ const ImageSelectorModal: React.FC<ImageSelectorModalProps> = ({
               onClick={handleSelectImage}
               disabled={!imageUrl}
             >
-              插入图片
+              Insert Image
             </button>
             <button
               type="button"
               className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
               onClick={handleClose}
             >
-              取消
+              Cancel
             </button>
           </div>
         </div>

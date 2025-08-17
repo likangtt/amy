@@ -1,9 +1,6 @@
 User-agent: *
 Allow: /
-
-# 禁止爬虫访问管理员页面
 Disallow: /admin/
-Disallow: /api/
 
-# XML站点地图
+# Sitemap
 Sitemap: https://www.massagechairreview.shop/sitemap.xml

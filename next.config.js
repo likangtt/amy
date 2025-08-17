@@ -1,19 +1,47 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true,
-  // 移除i18n配置，因为在App Router中使用不同的方式处理国际化
+  // 启用静态导出，这对SEO更友好
+  output: 'export',
+  
+  // 禁用图像优化，因为静态导出不支持
   images: {
-    domains: ['assets.vercel.com', 'images.unsplash.com'],
-    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
-    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+    unoptimized: true,
   },
-  // 添加实验性配置以解决水合不匹配问题
-  experimental: {
-    // 这将忽略某些水合不匹配警告
-    // 注意：这只是临时解决方案，最好是修复实际的不匹配问题
+  
+  // 添加重定向规则
+  async redirects() {
+    return [
+      {
+        source: '/admin',
+        destination: '/admin/articles',
+        permanent: true,
+      },
+    ];
   },
-  // 移动到顶层配置
-  serverExternalPackages: [],
+  
+  // 添加标头，包括允许搜索引擎索引的标头
+  async headers() {
+    return [
+      {
+        source: '/(.*)',
+        headers: [
+          {
+            key: 'X-Robots-Tag',
+            value: 'index, follow',
+          },
+        ],
+      },
+      {
+        source: '/admin/(.*)',
+        headers: [
+          {
+            key: 'X-Robots-Tag',
+            value: 'noindex, nofollow',
+          },
+        ],
+      },
+    ];
+  },
 };
 
 module.exports = nextConfig;

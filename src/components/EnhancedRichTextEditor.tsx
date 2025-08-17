@@ -46,7 +46,7 @@ const EnhancedRichTextEditor: React.FC<EnhancedRichTextEditorProps> = ({ value, 
   
   // 处理链接按钮点击
   const handleLinkClick = () => {
-    const url = prompt('请输入链接URL:', 'https://');
+    const url = prompt('Enter link URL:', 'https://');
     if (url) {
       insertTextAtCursor('[', `](${url})`);
     }
@@ -173,7 +173,7 @@ const EnhancedRichTextEditor: React.FC<EnhancedRichTextEditorProps> = ({ value, 
         className="w-full p-4 min-h-[400px] focus:outline-none"
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        placeholder="在这里输入文章内容..."
+        placeholder="Enter article content here..."
       />
       
       {/* 图片选择对话框 */}

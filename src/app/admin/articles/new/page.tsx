@@ -16,24 +16,24 @@ export default function NewArticle() {
     content: "",
     excerpt: "",
     featuredImage: "",
-    status: "草稿",
+    status: "Draft",
   });
 
   const [tagInput, setTagInput] = useState("");
   const [isSaving, setIsSaving] = useState(false);
   const [saveMessage, setSaveMessage] = useState("");
 
-  // 根据标题自动生成slug
+  // Generate slug automatically from title
   const generateSlug = (title: string) => {
     return title
       .toLowerCase()
-      .replace(/[^\w\s-]/g, '') // 移除特殊字符
-      .replace(/\s+/g, '-') // 将空格替换为连字符
-      .replace(/--+/g, '-') // 将多个连字符替换为单个连字符
-      .trim(); // 移除首尾空格
+      .replace(/[^\w\s-]/g, '') // Remove special characters
+      .replace(/\s+/g, '-') // Replace spaces with hyphens
+      .replace(/--+/g, '-') // Replace multiple hyphens with single hyphen
+      .trim(); // Remove leading/trailing spaces
   };
 
-  // 处理标题变化时自动更新slug
+  // Handle title change and auto-update slug
   const handleTitleChange = (title: string) => {
     setArticle({
       ...article,
@@ -42,17 +42,17 @@ export default function NewArticle() {
     });
   };
 
-  // 处理表单提交
+  // Handle form submission
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setIsSaving(true);
     
-    // 获取当前日期
+    // Get current date
     const currentDate = new Date().toISOString().split('T')[0];
     
-    // 创建新文章对象
+    // Create new article object
     const newArticle = {
-      id: Date.now(), // 使用时间戳作为唯一ID
+      id: Date.now(), // Use timestamp as unique ID
       title: article.title,
       slug: article.slug,
       category: article.category,
@@ -65,33 +65,33 @@ export default function NewArticle() {
       tags: article.tags
     };
     
-    // 将新文章保存到localStorage
+    // Save new article to localStorage
     try {
-      // 获取现有文章
+      // Get existing articles
       const existingArticles = localStorage.getItem('blog_articles');
       let articlesArray = existingArticles ? JSON.parse(existingArticles) : [];
       
-      // 添加新文章
+      // Add new article
       articlesArray.unshift(newArticle);
       
-      // 保存回localStorage
+      // Save back to localStorage
       localStorage.setItem('blog_articles', JSON.stringify(articlesArray));
       
       setIsSaving(false);
-      setSaveMessage("文章已成功创建！");
+      setSaveMessage("Article created successfully!");
       
-      // 2秒后跳转到文章列表
+      // Redirect to article list after 2 seconds
       setTimeout(() => {
         router.push('/admin/articles');
       }, 2000);
     } catch (error) {
-      console.error("保存文章失败:", error);
+      console.error("Failed to save article:", error);
       setIsSaving(false);
-      setSaveMessage("保存失败，请重试");
+      setSaveMessage("Save failed, please try again");
     }
   };
 
-  // 添加标签
+  // Add tag
   const addTag = () => {
     if (tagInput.trim() && !article.tags.includes(tagInput.trim())) {
       setArticle({
@@ -102,7 +102,7 @@ export default function NewArticle() {
     }
   };
 
-  // 删除标签
+  // Remove tag
   const removeTag = (tagToRemove: string) => {
     setArticle({
       ...article,
@@ -113,13 +113,13 @@ export default function NewArticle() {
   return (
     <div>
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold">创建新文章</h1>
+        <h1 className="text-2xl font-bold">Create New Article</h1>
         <div className="flex items-center gap-4">
           {saveMessage && (
             <span className="text-green-600">{saveMessage}</span>
           )}
           <Link href="/admin/articles" className="text-gray-600 hover:text-gray-900">
-            返回列表
+            Back to List
           </Link>
         </div>
       </div>
@@ -127,10 +127,10 @@ export default function NewArticle() {
       <form onSubmit={handleSubmit} className="space-y-6">
         <div className="bg-white rounded-lg shadow p-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {/* 标题 */}
+            {/* Title */}
             <div>
               <label htmlFor="title" className="block text-sm font-medium text-gray-700 mb-1">
-                文章标题 <span className="text-red-500">*</span>
+                Article Title <span className="text-red-500">*</span>
               </label>
               <input
                 type="text"
@@ -142,10 +142,10 @@ export default function NewArticle() {
               />
             </div>
 
-            {/* 别名 */}
+            {/* Slug */}
             <div>
               <label htmlFor="slug" className="block text-sm font-medium text-gray-700 mb-1">
-                URL别名 <span className="text-red-500">*</span>
+                URL Slug <span className="text-red-500">*</span>
               </label>
               <input
                 type="text"
@@ -155,13 +155,13 @@ export default function NewArticle() {
                 onChange={(e) => setArticle({ ...article, slug: e.target.value })}
                 required
               />
-              <p className="text-xs text-gray-500 mt-1">URL别名将用于文章的永久链接</p>
+              <p className="text-xs text-gray-500 mt-1">URL slug will be used for the article's permanent link</p>
             </div>
 
-            {/* 分类 */}
+            {/* Category */}
             <div>
               <label htmlFor="category" className="block text-sm font-medium text-gray-700 mb-1">
-                分类 <span className="text-red-500">*</span>
+                Category <span className="text-red-500">*</span>
               </label>
               <select
                 id="category"
@@ -170,19 +170,19 @@ export default function NewArticle() {
                 onChange={(e) => setArticle({ ...article, category: e.target.value })}
                 required
               >
-                <option value="">选择分类</option>
-                <option value="buying-guide">选购指南 (Buying Guide)</option>
-                <option value="usage-guide">使用方法 (Usage Guide)</option>
-                <option value="product-recommendations">产品推荐 (Product Recommendations)</option>
-                <option value="health-benefits">健康益处 (Health Benefits)</option>
-                <option value="maintenance">维护保养 (Maintenance)</option>
+                <option value="">Select Category</option>
+                <option value="buying-guide">Buying Guide</option>
+                <option value="usage-guide">Usage Guide</option>
+                <option value="product-recommendations">Product Recommendations</option>
+                <option value="health-benefits">Health Benefits</option>
+                <option value="maintenance">Maintenance</option>
               </select>
             </div>
 
-            {/* 状态 */}
+            {/* Status */}
             <div>
               <label htmlFor="status" className="block text-sm font-medium text-gray-700 mb-1">
-                状态
+                Status
               </label>
               <select
                 id="status"
@@ -190,15 +190,15 @@ export default function NewArticle() {
                 value={article.status}
                 onChange={(e) => setArticle({ ...article, status: e.target.value })}
               >
-                <option value="草稿">草稿</option>
-                <option value="已发布">已发布</option>
+                <option value="Draft">Draft</option>
+                <option value="Published">Published</option>
               </select>
             </div>
 
-            {/* 特色图片 */}
+            {/* Featured Image */}
             <div className="md:col-span-2">
               <label htmlFor="featuredImage" className="block text-sm font-medium text-gray-700 mb-1">
-                特色图片URL
+                Featured Image URL
               </label>
               <input
                 type="text"
@@ -206,26 +206,26 @@ export default function NewArticle() {
                 className="w-full border border-gray-300 rounded-md px-3 py-2"
                 value={article.featuredImage}
                 onChange={(e) => setArticle({ ...article, featuredImage: e.target.value })}
-                placeholder="输入图片URL或从媒体库选择"
+                placeholder="Enter image URL or select from media library"
               />
               {article.featuredImage && (
                 <div className="mt-2">
                   <img 
                     src={article.featuredImage} 
-                    alt="特色图片预览" 
+                    alt="Featured image preview" 
                     className="h-40 object-cover rounded-md"
                     onError={(e) => {
-                      (e.target as HTMLImageElement).src = 'https://via.placeholder.com/800x400?text=图片加载失败';
+                      (e.target as HTMLImageElement).src = 'https://via.placeholder.com/800x400?text=Image+failed+to+load';
                     }}
                   />
                 </div>
               )}
             </div>
 
-            {/* 摘要 */}
+            {/* Excerpt */}
             <div className="md:col-span-2">
               <label htmlFor="excerpt" className="block text-sm font-medium text-gray-700 mb-1">
-                文章摘要
+                Article Excerpt
               </label>
               <textarea
                 id="excerpt"
@@ -233,14 +233,14 @@ export default function NewArticle() {
                 rows={3}
                 value={article.excerpt}
                 onChange={(e) => setArticle({ ...article, excerpt: e.target.value })}
-                placeholder="简短描述文章内容，将显示在文章列表中"
+                placeholder="Brief description of the article content, will be displayed in article lists"
               />
             </div>
 
-            {/* 标签 */}
+            {/* Tags */}
             <div className="md:col-span-2">
               <label htmlFor="tags" className="block text-sm font-medium text-gray-700 mb-1">
-                标签
+                Tags
               </label>
               <div className="flex items-center">
                 <input
@@ -250,14 +250,14 @@ export default function NewArticle() {
                   value={tagInput}
                   onChange={(e) => setTagInput(e.target.value)}
                   onKeyPress={(e) => e.key === 'Enter' && (e.preventDefault(), addTag())}
-                  placeholder="输入标签后按回车添加"
+                  placeholder="Enter tag and press Enter to add"
                 />
                 <button
                   type="button"
                   className="bg-blue-600 text-white px-4 py-2 rounded-r-md hover:bg-blue-700"
                   onClick={addTag}
                 >
-                  添加
+                  Add
                 </button>
               </div>
               <div className="flex flex-wrap gap-2 mt-2">
@@ -281,28 +281,28 @@ export default function NewArticle() {
           </div>
         </div>
 
-        {/* 文章内容 */}
+        {/* Article Content */}
         <div className="bg-white rounded-lg shadow p-6">
           <label htmlFor="content" className="block text-sm font-medium text-gray-700 mb-1">
-            文章内容 <span className="text-red-500">*</span>
+            Article Content <span className="text-red-500">*</span>
           </label>
           <EnhancedRichTextEditor
             value={article.content}
             onChange={(value) => setArticle({ ...article, content: value })}
           />
           <div className="text-sm text-gray-500 mt-2">
-            支持Markdown格式。使用 # 表示标题，** 表示粗体，* 表示斜体，等等。
+            Supports Markdown format. Use # for headings, ** for bold, * for italic, etc.
           </div>
         </div>
 
-        {/* 提交按钮 */}
+        {/* Submit Buttons */}
         <div className="flex justify-end">
           <button
             type="button"
             className="bg-gray-300 text-gray-800 px-6 py-2 rounded-md hover:bg-gray-400 mr-4"
             onClick={() => router.push('/admin/articles')}
           >
-            取消
+            Cancel
           </button>
           <button
             type="submit"
@@ -317,9 +317,9 @@ export default function NewArticle() {
                   <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                   <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                 </svg>
-                保存中...
+                Saving...
               </>
-            ) : '创建文章'}
+            ) : 'Create Article'}
           </button>
         </div>
       </form>

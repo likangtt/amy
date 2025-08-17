@@ -101,7 +101,7 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({ onImageSelect }) => {
       >
         {isUploading ? (
           <div className="space-y-2">
-            <div className="text-sm text-gray-600">上传中...</div>
+            <div className="text-sm text-gray-600">Uploading...</div>
             <div className="w-full bg-gray-200 rounded-full h-2.5">
               <div 
                 className="bg-blue-600 h-2.5 rounded-full transition-all duration-300" 
@@ -127,12 +127,12 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({ onImageSelect }) => {
             </svg>
             <div className="mt-2 text-sm text-gray-600">
               <span className="font-medium text-blue-600 hover:text-blue-500">
-                点击上传图片
+                Click to upload image
               </span>
-              <span> 或拖放图片到此处</span>
+              <span> or drag and drop</span>
             </div>
             <p className="mt-1 text-xs text-gray-500">
-              支持PNG, JPG, GIF格式，最大10MB
+              PNG, JPG, GIF formats supported, max 10MB
             </p>
           </>
         )}

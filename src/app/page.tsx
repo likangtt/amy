@@ -1,200 +1,168 @@
-"use client";
+import { Metadata } from 'next';
+// 移除对next/link的依赖，使用普通的a标签替代
 
-import { useEffect, useState } from "react";
-import Container from "@/app/_components/container";
-import { Intro } from "@/app/_components/intro";
-import { BannerAd } from "@/app/_components/banner-ad";
-import { ArticleCard } from "@/app/_components/article-card";
-import Link from "next/link";
+export const metadata: Metadata = {
+  title: 'Massage Chair Review - Professional Guide & Reviews',
+  description: 'Expert massage chair reviews, buying guides, usage tips, and maintenance advice to help you choose the perfect massage chair for your needs.',
+  keywords: 'massage chair, massage chair reviews, buying guide, massage chair maintenance, massage chair benefits',
+  openGraph: {
+    title: 'Massage Chair Review - Professional Guide & Reviews',
+    description: 'Expert massage chair reviews, buying guides, usage tips, and maintenance advice to help you choose the perfect massage chair for your needs.',
+    url: 'https://www.massagechairreview.shop',
+    siteName: 'Massage Chair Review',
+    images: [
+      {
+        url: 'https://www.massagechairreview.shop/og-image.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Massage Chair Review',
+      },
+    ],
+    locale: 'en_US',
+    type: 'website',
+  },
+};
 
-// Mock article data (used when localStorage has no data)
-const MOCK_ARTICLES = [
-  {
-    id: 1,
-    title: "2023 Best Massage Chairs",
-    slug: "best-massage-chairs-2023",
-    category: "buying-guide",
-    excerpt: "We've tested the most popular massage chairs on the market to recommend the best options for different needs and budgets.",
-    featuredImage: "https://images.unsplash.com/photo-1545389336-cf090694435e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=764&q=80",
-    date: "2023-08-10",
-    status: "published"
-  },
-  {
-    id: 2,
-    title: "Massage Chair Price Guide",
-    slug: "massage-chair-price-guide",
-    category: "buying-guide",
-    excerpt: "Learn about the factors that affect massage chair prices and how to find the best value for your budget.",
-    featuredImage: "https://images.unsplash.com/photo-1583600427617-5c73c916d1de?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
-    date: "2023-08-05",
-    status: "published"
-  },
-  {
-    id: 3,
-    title: "How to Choose the Perfect Massage Chair",
-    slug: "how-to-choose-massage-chair",
-    category: "buying-guide",
-    excerpt: "Discover the key features to consider when selecting a massage chair that meets your specific needs and preferences.",
-    featuredImage: "https://images.unsplash.com/photo-1570655652364-2e0a67455ac6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
-    date: "2023-07-20",
-    status: "published"
-  },
-  {
-    id: 5,
-    title: "Getting the Most from Your Massage Chair",
-    slug: "getting-the-most-from-your-massage-chair",
-    category: "usage-guide",
-    excerpt: "Learn techniques and tips to maximize the benefits of your massage chair for optimal relaxation and therapeutic results.",
-    featuredImage: "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
-    date: "2023-08-08",
-    status: "published"
-  },
-  {
-    id: 6,
-    title: "Health Benefits of Massage Chairs",
-    slug: "health-benefits-massage-chairs",
-    category: "usage-guide",
-    excerpt: "Discover how regular use of massage chairs can improve your physical and mental wellbeing through various therapeutic mechanisms.",
-    featuredImage: "https://images.unsplash.com/photo-1519823551278-64ac92734fb1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
-    date: "2023-07-25",
-    status: "published"
-  },
-  {
-    id: 7,
-    title: "Massage Chair Maintenance Tips",
-    slug: "massage-chair-maintenance",
-    category: "usage-guide",
-    excerpt: "Essential maintenance guidelines to keep your massage chair in optimal condition and extend its lifespan for years of enjoyment.",
-    featuredImage: "https://images.unsplash.com/photo-1563013544-824ae1b704d3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
-    date: "2023-07-15",
-    status: "published"
-  }
-];
-
-export default function Index() {
-  const [buyingGuideArticles, setBuyingGuideArticles] = useState<any[]>([]);
-  const [usageGuideArticles, setUsageGuideArticles] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    // Try to get articles from localStorage
-    try {
-      const savedArticles = localStorage.getItem('blog_articles');
-      let articlesArray = savedArticles ? JSON.parse(savedArticles) : [];
-      
-      // If no articles in localStorage, use mock data
-      if (articlesArray.length === 0) {
-        articlesArray = MOCK_ARTICLES;
-      }
-      
-      // Filter buying guide articles
-      const buyingGuides = articlesArray
-        .filter((article: any) => 
-          article.category === 'buying-guide' && 
-          (article.status === 'published' || article.status === '已发布')
-        )
-        .sort((a: any, b: any) => 
-          new Date(b.date).getTime() - new Date(a.date).getTime()
-        )
-        .slice(0, 3);
-      
-      // Filter usage guide articles
-      const usageGuides = articlesArray
-        .filter((article: any) => 
-          article.category === 'usage-guide' && 
-          (article.status === 'published' || article.status === '已发布')
-        )
-        .sort((a: any, b: any) => 
-          new Date(b.date).getTime() - new Date(a.date).getTime()
-        )
-        .slice(0, 3);
-      
-      setBuyingGuideArticles(buyingGuides);
-      setUsageGuideArticles(usageGuides);
-    } catch (error) {
-      console.error("Failed to get articles:", error);
-      
-      // If error, use mock data
-      const buyingGuides = MOCK_ARTICLES
-        .filter(article => article.category === 'buying-guide' && (article.status === 'published' || article.status === '已发布'))
-        .slice(0, 3);
-      
-      const usageGuides = MOCK_ARTICLES
-        .filter(article => article.category === 'usage-guide' && (article.status === 'published' || article.status === '已发布'))
-        .slice(0, 3);
-      
-      setBuyingGuideArticles(buyingGuides);
-      setUsageGuideArticles(usageGuides);
-    } finally {
-      setLoading(false);
+// Function to fetch featured articles
+async function getFeaturedArticles() {
+  // In a real application, this should fetch data from a database or API
+  // This is just an example
+  return [
+    {
+      id: 1,
+      title: 'Best Massage Chairs for Home Use',
+      slug: 'best-massage-chairs-home-use',
+      category: 'Buying Guide',
+      date: '2023-11-01',
+      excerpt: 'A comprehensive guide to selecting the best massage chair for your home',
+      featuredImage: 'https://via.placeholder.com/800x400',
+    },
+    {
+      id: 2,
+      title: 'How to Maintain Your Massage Chair',
+      slug: 'massage-chair-maintenance',
+      category: 'Maintenance',
+      date: '2023-11-05',
+      excerpt: 'Tips and tricks for keeping your massage chair in top condition',
+      featuredImage: 'https://via.placeholder.com/800x400',
+    },
+    {
+      id: 3,
+      title: 'Health Benefits of Regular Massage Chair Use',
+      slug: 'health-benefits-massage-chairs',
+      category: 'Health Benefits',
+      date: '2023-11-10',
+      excerpt: 'Discover the many health benefits of using a massage chair regularly',
+      featuredImage: 'https://via.placeholder.com/800x400',
     }
-  }, []);
+  ];
+}
 
+// Function to fetch categories
+async function getCategories() {
+  return [
+    { name: 'Buying Guide', slug: 'buying-guide', count: 5 },
+    { name: 'Usage Guide', slug: 'usage-guide', count: 3 },
+    { name: 'Product Recommendations', slug: 'product-recommendations', count: 7 },
+    { name: 'Health Benefits', slug: 'health-benefits', count: 4 },
+    { name: 'Maintenance', slug: 'maintenance', count: 2 }
+  ];
+}
+
+export default async function Home() {
+  const featuredArticles = await getFeaturedArticles();
+  const categories = await getCategories();
+  
   return (
-    <main>
-      <Container>
-        <Intro />
-        
-        {/* Buying Guide section */}
-        <div className="mb-12">
-          <div className="flex justify-between items-center mb-6">
-            <h2 className="text-3xl font-bold text-blue-600">Buying Guide</h2>
-            <Link href="/buying-guide" className="text-blue-600 hover:text-blue-800 font-semibold">
-              View All
-            </Link>
-          </div>
-          
-          {loading ? (
-            <div className="flex justify-center items-center h-64">
-              <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
-            </div>
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {buyingGuideArticles.map((article) => (
-                <ArticleCard 
-                  key={article.id}
-                  title={article.title} 
-                  description={article.excerpt} 
-                  imageSrc={article.featuredImage} 
-                  imageAlt={article.title} 
-                  href={`/articles/${article.slug}`} 
-                />
-              ))}
-            </div>
-          )}
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      {/* Hero Section */}
+      <section className="bg-gradient-to-r from-blue-500 to-indigo-600 rounded-xl p-8 mb-12 text-white">
+        <div className="max-w-3xl">
+          <h1 className="text-4xl font-bold mb-4">Find Your Perfect Massage Chair</h1>
+          <p className="text-xl mb-6">Expert reviews, buying guides, and maintenance tips to help you make the right choice.</p>
+          <a href="/articles/best-massage-chairs-home-use" className="bg-white text-blue-600 px-6 py-3 rounded-lg font-medium hover:bg-blue-50 transition-colors">
+            Read Our Buying Guide
+          </a>
+        </div>
+      </section>
+      
+      {/* Featured Articles */}
+      <section className="mb-12">
+        <div className="flex justify-between items-center mb-6">
+          <h2 className="text-2xl font-bold">Featured Articles</h2>
+          <a href="/articles" className="text-blue-600 hover:underline">
+            View All Articles
+          </a>
         </div>
         
-        {/* Usage Guide section */}
-        <div className="mb-12">
-          <div className="flex justify-between items-center mb-6">
-            <h2 className="text-3xl font-bold text-blue-600">Usage Guide</h2>
-            <Link href="/usage-guide" className="text-blue-600 hover:text-blue-800 font-semibold">
-              View All
-            </Link>
-          </div>
-          
-          {loading ? (
-            <div className="flex justify-center items-center h-64">
-              <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
-            </div>
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {usageGuideArticles.map((article) => (
-                <ArticleCard 
-                  key={article.id}
-                  title={article.title} 
-                  description={article.excerpt} 
-                  imageSrc={article.featuredImage} 
-                  imageAlt={article.title} 
-                  href={`/articles/${article.slug}`} 
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {featuredArticles.map((article) => (
+            <div key={article.id} className="bg-white rounded-lg shadow-md overflow-hidden">
+              {article.featuredImage && (
+                <img 
+                  src={article.featuredImage} 
+                  alt={article.title} 
+                  className="w-full h-48 object-cover"
                 />
-              ))}
+              )}
+              <div className="p-6">
+                <span className="text-sm text-blue-600 font-medium">{article.category}</span>
+                <h3 className="text-xl font-bold mt-1 mb-2">
+                  <a href={`/articles/${article.slug}`} className="hover:text-blue-600">
+                    {article.title}
+                  </a>
+                </h3>
+                <p className="text-gray-600 mb-4">{article.excerpt}</p>
+                <div className="flex justify-between items-center">
+                  <span className="text-sm text-gray-500">{new Date(article.date).toLocaleDateString('en-US')}</span>
+                  <a href={`/articles/${article.slug}`} className="text-blue-600 hover:underline">
+                    Read More
+                  </a>
+                </div>
+              </div>
             </div>
-          )}
+          ))}
         </div>
-        
-        <BannerAd position="bottom" />
-      </Container>
-    </main>
+      </section>
+      
+      {/* Categories */}
+      <section className="mb-12">
+        <h2 className="text-2xl font-bold mb-6">Browse by Category</h2>
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+          {categories.map((category) => (
+            <a 
+              key={category.slug} 
+              href={`/category/${category.slug}`}
+              className="bg-white rounded-lg shadow-md p-4 text-center hover:shadow-lg transition-shadow"
+            >
+              <h3 className="font-medium mb-1">{category.name}</h3>
+              <span className="text-sm text-gray-500">{category.count} articles</span>
+            </a>
+          ))}
+        </div>
+      </section>
+      
+      {/* Newsletter */}
+      <section className="bg-gray-100 rounded-xl p-8">
+        <div className="max-w-2xl mx-auto text-center">
+          <h2 className="text-2xl font-bold mb-2">Stay Updated</h2>
+          <p className="text-gray-600 mb-6">Subscribe to our newsletter for the latest massage chair reviews and guides.</p>
+          <form className="flex flex-col sm:flex-row gap-2">
+            <input 
+              type="email" 
+              placeholder="Your email address" 
+              className="flex-1 px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              required
+            />
+            <button 
+              type="submit" 
+              className="bg-blue-600 text-white px-6 py-2 rounded-lg font-medium hover:bg-blue-700 transition-colors"
+            >
+              Subscribe
+            </button>
+          </form>
+        </div>
+      </section>
+    </div>
   );
 }

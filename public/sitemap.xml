@@ -1,88 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <!-- Homepage -->
   <url>
     <loc>https://www.massagechairreview.shop/</loc>
-    <lastmod>2023-11-01T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
+    <lastmod>2023-11-01</lastmod>
+    <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
-
-  <!-- Main Category Pages -->
   <url>
-    <loc>https://www.massagechairreview.shop/buying-guide</loc>
-    <lastmod>2023-11-01T00:00:00+00:00</lastmod>
+    <loc>https://www.massagechairreview.shop/articles/best-massage-chairs-home-use</loc>
+    <lastmod>2023-11-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://www.massagechairreview.shop/usage-guide</loc>
-    <lastmod>2023-11-01T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <!-- Static Pages -->
-  <url>
-    <loc>https://www.massagechairreview.shop/about</loc>
-    <lastmod>2023-11-01T00:00:00+00:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.massagechairreview.shop/contact</loc>
-    <lastmod>2023-11-01T00:00:00+00:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.massagechairreview.shop/privacy</loc>
-    <lastmod>2023-11-01T00:00:00+00:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://www.massagechairreview.shop/how-to-write-articles</loc>
-    <lastmod>2023-11-01T00:00:00+00:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-
-  <!-- Articles -->
-  <url>
-    <loc>https://www.massagechairreview.shop/articles/best-massage-chairs-2023</loc>
-    <lastmod>2023-08-14T00:00:00+00:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.massagechairreview.shop/articles/massage-chair-price-guide</loc>
-    <lastmod>2023-08-05T00:00:00+00:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.massagechairreview.shop/articles/how-to-choose-massage-chair</loc>
-    <lastmod>2023-07-20T00:00:00+00:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.massagechairreview.shop/articles/getting-the-most-from-your-massage-chair</loc>
-    <lastmod>2023-08-08T00:00:00+00:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.massagechairreview.shop/articles/health-benefits-massage-chairs</loc>
-    <lastmod>2023-07-25T00:00:00+00:00</lastmod>
-    <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.massagechairreview.shop/articles/massage-chair-maintenance</loc>
-    <lastmod>2023-07-15T00:00:00+00:00</lastmod>
-    <changefreq>monthly</changefreq>
+    <lastmod>2023-11-05</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
+  <!-- 添加更多文章页面 -->
 </urlset>
