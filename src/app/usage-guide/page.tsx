@@ -10,19 +10,19 @@ export default function UsageGuidePage() {
   const articles = [
     {
       id: 1,
-      title: 'How to Use Your Massage Chair Safely',
-      slug: 'massage-chair-safety-tips',
-      excerpt: 'Essential safety tips and best practices for using your massage chair',
-      date: '2023-11-05',
-      featuredImage: 'https://via.placeholder.com/800x400',
+      title: 'Proper Massage Chair Usage: Maximize Benefits & Safety',
+      slug: 'proper-massage-chair-usage',
+      excerpt: 'Learn the correct way to use your massage chair for maximum therapeutic benefits while ensuring safety and comfort.',
+      date: '2023-11-12',
+      featuredImage: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=2340&q=80',
     },
     {
       id: 2,
-      title: 'Maximizing Your Massage Chair Benefits',
-      slug: 'maximize-massage-chair-benefits',
-      excerpt: 'Tips to get the most therapeutic benefits from your massage chair sessions',
-      date: '2023-10-30',
-      featuredImage: 'https://via.placeholder.com/800x400',
+      title: 'Massage Chair Health Benefits: Science-Backed Wellness Advantages',
+      slug: 'massage-chair-health-benefits',
+      excerpt: 'Discover the proven health benefits of regular massage chair use, from stress reduction to improved circulation and pain relief.',
+      date: '2023-11-15',
+      featuredImage: 'https://images.unsplash.com/photo-1559757148-5c350d0d3c56?ixlib=rb-4.0.3&auto=format&fit=crop&w=2340&q=80',
     },
   ];
 

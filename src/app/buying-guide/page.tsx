@@ -10,19 +10,35 @@ export default function BuyingGuidePage() {
   const articles = [
     {
       id: 1,
-      title: 'Best Massage Chairs for Home Use',
-      slug: 'best-massage-chairs-home-use',
-      excerpt: 'A comprehensive guide to selecting the best massage chair for your home',
+      title: 'How to Choose the Right Massage Chair for You',
+      slug: 'how-to-choose-massage-chair',
+      excerpt: 'A comprehensive guide to help you understand the key factors to consider when buying a massage chair, including massage technology, track type, zero gravity features, and more.',
       date: '2023-11-01',
-      featuredImage: 'https://via.placeholder.com/800x400',
+      featuredImage: 'https://images.unsplash.com/photo-1545454675-3531b543be5d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80',
     },
     {
       id: 2,
-      title: 'How to Choose the Right Massage Chair',
-      slug: 'how-to-choose-massage-chair',
-      excerpt: 'Key factors to consider when buying a massage chair',
+      title: 'Best Massage Chairs for Home Use in 2023',
+      slug: 'best-massage-chairs-2023',
+      excerpt: 'Discover the most worthwhile massage chairs on the market in 2023, from luxury high-end models to compact space-saving options.',
       date: '2023-10-28',
-      featuredImage: 'https://via.placeholder.com/800x400',
+      featuredImage: 'https://images.unsplash.com/photo-1600881333168-2ef49b341f30?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80',
+    },
+    {
+      id: 3,
+      title: 'Massage Chair Types Comparison Guide',
+      slug: 'massage-chair-types-comparison',
+      excerpt: 'Compare different types of massage chairs including full-body, compact, and luxury models to find the perfect fit for your needs.',
+      date: '2023-11-10',
+      featuredImage: 'https://images.unsplash.com/photo-1600298881974-6be191ceeda1?ixlib=rb-4.0.3&auto=format&fit=crop&w=2340&q=80',
+    },
+    {
+      id: 4,
+      title: 'Massage Chair Budget Guide: How Much Should You Spend?',
+      slug: 'massage-chair-budget-guide',
+      excerpt: 'Complete budget guide for massage chairs. Learn what features you get at different price points and how to maximize your investment.',
+      date: '2023-11-08',
+      featuredImage: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-4.0.3&auto=format&fit=crop&w=2340&q=80',
     },
   ];
 
