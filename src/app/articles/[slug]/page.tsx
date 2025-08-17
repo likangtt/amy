@@ -38,9 +38,10 @@ async function getArticleBySlug(slug: string) {
 }
 
 // 生成元数据函数
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   // 从数据库或API获取文章数据
-  const article = await getArticleBySlug(params.slug);
+  const resolvedParams = await params;
+  const article = await getArticleBySlug(resolvedParams.slug);
   
   if (!article) {
     return {
@@ -80,8 +81,9 @@ export async function generateStaticParams() {
 }
 
 // 文章页面组件 - 服务器组件
-export default async function ArticlePage({ params }: { params: { slug: string } }) {
-  const article = await getArticleBySlug(params.slug);
+export default async function ArticlePage({ params }: { params: Promise<{ slug: string }> }) {
+  const resolvedParams = await params;
+  const article = await getArticleBySlug(resolvedParams.slug);
   
   if (!article) {
     // 简单的404处理
