@@ -53,6 +53,23 @@ Although the Osaki OS-Pro Maestro is relatively expensive (around $8,999), its d
   }
 };
 
+// 生成静态路径
+export async function generateStaticParams() {
+  // 为管理页面生成一些预定义的ID
+  // 在实际应用中，这里应该从数据库获取所有文章ID
+  try {
+    // 临时模拟数据
+    const articleIds = ['1', '2'];
+    
+    return articleIds.map((id) => ({
+      id: id,
+    }));
+  } catch (error) {
+    console.error('Failed to fetch article IDs:', error);
+    return [];
+  }
+}
+
 // Modify type definition to comply with Next.js 15 requirements
 export default function EditArticle({ params }: { params: Promise<{ id: string }> }) {
   const router = useRouter();
