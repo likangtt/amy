@@ -12,14 +12,18 @@ function getFeaturedArticles() {
   }
   
   try {
-    const articlesData = localStorage.getItem('blog_articles');
+    // Try both possible localStorage keys
+    let articlesData = localStorage.getItem('articles') || localStorage.getItem('blog_articles');
     if (articlesData) {
       const articles = JSON.parse(articlesData);
+      console.log('Found articles in localStorage:', articles);
       // Return only published articles, sorted by date (newest first)
-      return articles
-        .filter((article: any) => article.status === 'Published')
-        .sort((a: any, b: any) => new Date(b.date).getTime() - new Date(a.date).getTime())
+      const publishedArticles = articles
+        .filter((article: any) => article.status === 'Published' || article.status === '已发布')
+        .sort((a: any, b: any) => new Date(b.date || b.createdAt).getTime() - new Date(a.date || a.createdAt).getTime())
         .slice(0, 6); // Show up to 6 featured articles
+      console.log('Published articles:', publishedArticles);
+      return publishedArticles;
     }
   } catch (error) {
     console.error('Error loading articles from localStorage:', error);
@@ -61,10 +65,16 @@ export default function Home() {
     
     // Calculate category counts based on actual articles
     const buyingGuideCount = articles.filter((article: any) => 
-      article.category === 'buying-guide' || article.category === 'Buying Guide'
+      article.category === 'buying-guide' || 
+      article.category === 'Buying Guide' || 
+      article.category === 'buying guide' ||
+      (article.category && article.category.toLowerCase().includes('buying'))
     ).length;
     const usageGuideCount = articles.filter((article: any) => 
-      article.category === 'usage-guide' || article.category === 'Usage Guide'
+      article.category === 'usage-guide' || 
+      article.category === 'Usage Guide' || 
+      article.category === 'usage guide' ||
+      (article.category && article.category.toLowerCase().includes('usage'))
     ).length;
     
     setCategories([
@@ -116,7 +126,10 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {featuredArticles
               .filter((article: any) => 
-                article.category === 'buying-guide' || article.category === 'Buying Guide'
+                article.category === 'buying-guide' || 
+                article.category === 'Buying Guide' || 
+                article.category === 'buying guide' ||
+                (article.category && article.category.toLowerCase().includes('buying'))
               )
               .slice(0, 3)
               .map((article: any) => (
@@ -164,7 +177,10 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {featuredArticles
               .filter((article: any) => 
-                article.category === 'usage-guide' || article.category === 'Usage Guide'
+                article.category === 'usage-guide' || 
+                article.category === 'Usage Guide' || 
+                article.category === 'usage guide' ||
+                (article.category && article.category.toLowerCase().includes('usage'))
               )
               .slice(0, 3)
               .map((article: any) => (
