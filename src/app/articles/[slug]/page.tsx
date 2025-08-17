@@ -1,68 +1,90 @@
-"use client";
-
-import { useState, useEffect } from "react";
 import { Metadata } from 'next';
 
-// 模拟文章数据
-const ARTICLES = [
-  {
-    id: 1,
-    title: 'Best Massage Chairs for Home Use',
-    slug: 'best-massage-chairs-home-use',
-    category: 'Buying Guide',
-    date: '2023-11-01',
-    content: '<p>Finding the perfect massage chair for your home can be challenging. This guide will help you understand the key features to look for...</p>',
-    excerpt: 'A comprehensive guide to selecting the best massage chair for your home',
-    featuredImage: 'https://via.placeholder.com/800x400',
-    tags: ['massage chairs', 'buying guide', 'home use']
-  },
-  {
-    id: 2,
-    title: 'How to Maintain Your Massage Chair',
-    slug: 'massage-chair-maintenance',
-    category: 'Maintenance',
-    date: '2023-11-05',
-    content: '<p>Regular maintenance of your massage chair can extend its lifespan and ensure optimal performance...</p>',
-    excerpt: 'Tips and tricks for keeping your massage chair in top condition',
-    featuredImage: 'https://via.placeholder.com/800x400',
-    tags: ['maintenance', 'cleaning', 'longevity']
-  }
-];
-
-// 修改为客户端组件，使用与edit/[id]/page.tsx相似的方法处理params
-export default function ArticlePage({ params }: { params: Promise<{ slug: string }> }) {
-  const [slug, setSlug] = useState<string>("");
-  const [article, setArticle] = useState<any>(null);
-  const [notFound, setNotFound] = useState(false);
-
-  // 解析params并设置slug
-  useEffect(() => {
-    params.then((resolvedParams) => {
-      setSlug(resolvedParams.slug);
-    });
-  }, [params]);
-
-  // 加载文章数据
-  useEffect(() => {
-    if (!slug) return; // 等待slug被设置
-    
-    try {
-      // 查找指定slug的文章
-      const foundArticle = ARTICLES.find((article) => article.slug === slug);
-      
-      if (foundArticle) {
-        setArticle(foundArticle);
-      } else {
-        setNotFound(true);
+// 获取文章数据的函数
+async function getArticleBySlug(slug: string) {
+  // 在实际应用中，这应该从数据库或API获取数据
+  // 这里只是示例
+  try {
+    // 临时模拟数据（英文内容）
+    const articles = [
+      {
+        id: 1,
+        title: 'Best Massage Chairs for Home Use',
+        slug: 'best-massage-chairs-home-use',
+        category: 'Buying Guide',
+        date: '2023-11-01',
+        content: '<p>Finding the perfect massage chair for your home can be challenging. This guide will help you understand the key features to look for...</p>',
+        excerpt: 'A comprehensive guide to selecting the best massage chair for your home',
+        featuredImage: 'https://via.placeholder.com/800x400',
+        tags: ['massage chairs', 'buying guide', 'home use']
+      },
+      {
+        id: 2,
+        title: 'How to Maintain Your Massage Chair',
+        slug: 'massage-chair-maintenance',
+        category: 'Maintenance',
+        date: '2023-11-05',
+        content: '<p>Regular maintenance of your massage chair can extend its lifespan and ensure optimal performance...</p>',
+        excerpt: 'Tips and tricks for keeping your massage chair in top condition',
+        featuredImage: 'https://via.placeholder.com/800x400',
+        tags: ['maintenance', 'cleaning', 'longevity']
       }
-    } catch (error) {
-      console.error('Failed to fetch article:', error);
-      setNotFound(true);
-    }
-  }, [slug]);
+    ];
+    return articles.find((article) => article.slug === slug) || null;
+  } catch (error) {
+    console.error('Failed to fetch article:', error);
+    return null;
+  }
+}
 
-  // 如果文章不存在
-  if (notFound) {
+// 生成元数据函数
+export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+  // 从数据库或API获取文章数据
+  const article = await getArticleBySlug(params.slug);
+  
+  if (!article) {
+    return {
+      title: 'Article Not Found | Massage Chair Review',
+      description: 'The requested article does not exist or has been removed'
+    };
+  }
+  
+  return {
+    title: article.title,
+    description: article.excerpt || `Read more about ${article.title}`,
+    openGraph: {
+      title: article.title,
+      description: article.excerpt || `Read more about ${article.title}`,
+      images: article.featuredImage ? [{ url: article.featuredImage }] : []
+    }
+  };
+}
+
+// 生成静态路径
+export async function generateStaticParams() {
+  // 在实际应用中，这里应该从数据库或API获取所有文章的slug
+  try {
+    // 临时模拟数据
+    const articles = [
+      { slug: 'best-massage-chairs-home-use' },
+      { slug: 'massage-chair-maintenance' }
+    ];
+    
+    return articles.map((article) => ({
+      slug: article.slug,
+    }));
+  } catch (error) {
+    console.error('Failed to fetch article list:', error);
+    return [];
+  }
+}
+
+// 文章页面组件 - 服务器组件
+export default async function ArticlePage({ params }: { params: { slug: string } }) {
+  const article = await getArticleBySlug(params.slug);
+  
+  if (!article) {
+    // 简单的404处理
     return (
       <div className="max-w-4xl mx-auto py-8 px-4 text-center">
         <h1 className="text-3xl font-bold mb-4">Article Not Found</h1>
@@ -71,16 +93,7 @@ export default function ArticlePage({ params }: { params: Promise<{ slug: string
       </div>
     );
   }
-
-  // 如果文章数据还在加载中
-  if (!article) {
-    return (
-      <div className="max-w-4xl mx-auto py-8 px-4 text-center">
-        <p>Loading article...</p>
-      </div>
-    );
-  }
-
+  
   return (
     <article className="max-w-4xl mx-auto py-8 px-4">
       {article.featuredImage && (
@@ -116,33 +129,4 @@ export default function ArticlePage({ params }: { params: Promise<{ slug: string
       <div className="prose max-w-none" dangerouslySetInnerHTML={{ __html: article.content }} />
     </article>
   );
-}
-
-// 为了SEO，添加元数据（这在客户端组件中不会被使用，但保留以便将来转换回服务器组件）
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-  const article = ARTICLES.find((article) => article.slug === params.slug);
-  
-  if (!article) {
-    return {
-      title: 'Article Not Found | Massage Chair Review',
-      description: 'The requested article does not exist or has been removed'
-    };
-  }
-  
-  return {
-    title: article.title,
-    description: article.excerpt || `Read more about ${article.title}`,
-    openGraph: {
-      title: article.title,
-      description: article.excerpt || `Read more about ${article.title}`,
-      images: article.featuredImage ? [{ url: article.featuredImage }] : []
-    }
-  };
-}
-
-// 生成静态路径
-export async function generateStaticParams() {
-  return ARTICLES.map((article) => ({
-    slug: article.slug,
-  }));
 }
