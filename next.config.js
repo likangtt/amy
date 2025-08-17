@@ -1,9 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // 启用静态导出，这对SEO更友好
-  output: 'export',
-  
-  // 禁用图像优化，因为静态导出不支持
+  // 禁用图像优化以提高兼容性
   images: {
     unoptimized: true,
   },
