@@ -107,10 +107,10 @@ export default async function Home() {
             <p className="text-xl mb-6">Expert reviews, buying guides, and usage tips to help you make the right choice for your wellness journey.</p>
             <div className="flex flex-col sm:flex-row gap-4">
               <a href="/buying-guide" className="bg-white text-blue-600 px-6 py-3 rounded-lg font-medium hover:bg-blue-50 hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200 text-center">
-                选购指南
+                Buying Guide
               </a>
               <a href="/usage-guide" className="bg-blue-700 text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-800 hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200 text-center">
-                使用指南
+                Usage Guide
               </a>
             </div>
           </div>
@@ -150,7 +150,7 @@ export default async function Home() {
                   <div className="flex justify-between items-center">
                     <span className="text-sm text-gray-500">{new Date(article.date).toLocaleDateString('en-US')}</span>
                     <span className="text-blue-600 group-hover:text-blue-800 font-medium transition-colors duration-200">
-                      阅读更多 →
+                      Read More →
                     </span>
                   </div>
                 </div>
@@ -170,7 +170,7 @@ export default async function Home() {
                 className="group bg-white rounded-lg shadow-md p-6 text-center hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 cursor-pointer border-2 border-transparent hover:border-blue-200"
               >
                 <h3 className="font-medium mb-2 text-lg group-hover:text-blue-600 transition-colors duration-200">{category.name}</h3>
-                <span className="text-sm text-gray-500 group-hover:text-gray-700 transition-colors duration-200">{category.count} 篇文章</span>
+                <span className="text-sm text-gray-500 group-hover:text-gray-700 transition-colors duration-200">{category.count} articles</span>
               </a>
             ))}
           </div>
