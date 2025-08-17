@@ -88,8 +88,8 @@ async function getFeaturedArticles() {
 // Function to fetch categories
 async function getCategories() {
   return [
-    { name: 'Buying Guide', slug: 'buying-guide', count: 5 },
-    { name: 'Usage Guide', slug: 'usage-guide', count: 3 }
+    { name: 'Buying Guide', slug: 'buying-guide', count: 7 },
+    { name: 'Usage Guide', slug: 'usage-guide', count: 2 }
   ];
 }
 
