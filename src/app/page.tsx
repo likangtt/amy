@@ -89,9 +89,7 @@ async function getFeaturedArticles() {
 async function getCategories() {
   return [
     { name: 'Buying Guide', slug: 'buying-guide', count: 5 },
-    { name: 'Usage Guide', slug: 'usage-guide', count: 3 },
-    { name: 'Product Recommendations', slug: 'product-recommendations', count: 7 },
-    { name: 'Health Benefits', slug: 'health-benefits', count: 4 }
+    { name: 'Usage Guide', slug: 'usage-guide', count: 3 }
   ];
 }
 
@@ -108,11 +106,11 @@ export default async function Home() {
             <h1 className="text-4xl font-bold mb-4">Find Your Perfect Massage Chair</h1>
             <p className="text-xl mb-6">Expert reviews, buying guides, and usage tips to help you make the right choice for your wellness journey.</p>
             <div className="flex flex-col sm:flex-row gap-4">
-              <a href="/buying-guide" className="bg-white text-blue-600 px-6 py-3 rounded-lg font-medium hover:bg-blue-50 transition-colors text-center">
-                Buying Guide
+              <a href="/buying-guide" className="bg-white text-blue-600 px-6 py-3 rounded-lg font-medium hover:bg-blue-50 hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200 text-center">
+                选购指南
               </a>
-              <a href="/usage-guide" className="bg-blue-700 text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-800 transition-colors text-center">
-                Usage Guide
+              <a href="/usage-guide" className="bg-blue-700 text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-800 hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200 text-center">
+                使用指南
               </a>
             </div>
           </div>
@@ -129,30 +127,34 @@ export default async function Home() {
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {featuredArticles.map((article) => (
-              <div key={article.id} className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
+              <a 
+                key={article.id} 
+                href={`/articles/${article.slug}`}
+                className="group bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transform hover:-translate-y-2 transition-all duration-300 cursor-pointer"
+              >
                 {article.featuredImage && (
-                  <img 
-                    src={article.featuredImage} 
-                    alt={article.title} 
-                    className="w-full h-48 object-cover"
-                  />
+                  <div className="overflow-hidden">
+                    <img 
+                      src={article.featuredImage} 
+                      alt={article.title} 
+                      className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                  </div>
                 )}
                 <div className="p-6">
                   <span className="text-sm text-blue-600 font-medium">{article.category}</span>
-                  <h3 className="text-xl font-bold mt-1 mb-2">
-                    <a href={`/articles/${article.slug}`} className="hover:text-blue-600">
-                      {article.title}
-                    </a>
+                  <h3 className="text-xl font-bold mt-1 mb-2 group-hover:text-blue-600 transition-colors duration-200">
+                    {article.title}
                   </h3>
-                  <p className="text-gray-600 mb-4">{article.excerpt}</p>
+                  <p className="text-gray-600 mb-4 line-clamp-3">{article.excerpt}</p>
                   <div className="flex justify-between items-center">
                     <span className="text-sm text-gray-500">{new Date(article.date).toLocaleDateString('en-US')}</span>
-                    <a href={`/articles/${article.slug}`} className="text-blue-600 hover:underline">
-                      Read More
-                    </a>
+                    <span className="text-blue-600 group-hover:text-blue-800 font-medium transition-colors duration-200">
+                      阅读更多 →
+                    </span>
                   </div>
                 </div>
-              </div>
+              </a>
             ))}
           </div>
         </section>
@@ -160,15 +162,15 @@ export default async function Home() {
         {/* Categories */}
         <section className="mb-12">
           <h2 className="text-2xl font-bold mb-6">Browse by Category</h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-2xl mx-auto">
             {categories.map((category) => (
               <a 
                 key={category.slug} 
                 href={`/${category.slug}`}
-                className="bg-white rounded-lg shadow-md p-6 text-center hover:shadow-lg transition-shadow"
+                className="group bg-white rounded-lg shadow-md p-6 text-center hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 cursor-pointer border-2 border-transparent hover:border-blue-200"
               >
-                <h3 className="font-medium mb-2">{category.name}</h3>
-                <span className="text-sm text-gray-500">{category.count} articles</span>
+                <h3 className="font-medium mb-2 text-lg group-hover:text-blue-600 transition-colors duration-200">{category.name}</h3>
+                <span className="text-sm text-gray-500 group-hover:text-gray-700 transition-colors duration-200">{category.count} 篇文章</span>
               </a>
             ))}
           </div>
