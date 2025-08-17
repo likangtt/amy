@@ -104,17 +104,22 @@ export default function Home() {
           </div>
         </section>
         
-        {/* Featured Articles */}
+        {/* Buying Guide Section */}
         <section className="mb-12">
           <div className="flex justify-between items-center mb-6">
-            <h2 className="text-2xl font-bold">Featured Articles</h2>
-            <a href="/articles" className="text-blue-600 hover:underline">
+            <h2 className="text-2xl font-bold">Buying Guide</h2>
+            <a href="/buying-guide" className="text-blue-600 hover:underline">
               View All Articles
             </a>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {featuredArticles.map((article) => (
+            {featuredArticles
+              .filter((article: any) => 
+                article.category === 'buying-guide' || article.category === 'Buying Guide'
+              )
+              .slice(0, 3)
+              .map((article: any) => (
               <a 
                 key={article.id} 
                 href={`/articles/${article.slug}`}
@@ -130,7 +135,7 @@ export default function Home() {
                   </div>
                 )}
                 <div className="p-6">
-                  <span className="text-sm text-blue-600 font-medium">{article.category}</span>
+                  <span className="text-sm text-blue-600 font-medium">Buying Guide</span>
                   <h3 className="text-xl font-bold mt-1 mb-2 group-hover:text-blue-600 transition-colors duration-200">
                     {article.title}
                   </h3>
@@ -147,18 +152,49 @@ export default function Home() {
           </div>
         </section>
         
-        {/* Categories */}
+        {/* Usage Guide Section */}
         <section className="mb-12">
-          <h2 className="text-2xl font-bold mb-6">Browse by Category</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-2xl mx-auto">
-            {categories.map((category) => (
+          <div className="flex justify-between items-center mb-6">
+            <h2 className="text-2xl font-bold">Usage Guide</h2>
+            <a href="/usage-guide" className="text-blue-600 hover:underline">
+              View All Articles
+            </a>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {featuredArticles
+              .filter((article: any) => 
+                article.category === 'usage-guide' || article.category === 'Usage Guide'
+              )
+              .slice(0, 3)
+              .map((article: any) => (
               <a 
-                key={category.slug} 
-                href={`/${category.slug}`}
-                className="group bg-white rounded-lg shadow-md p-6 text-center hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 cursor-pointer border-2 border-transparent hover:border-blue-200"
+                key={article.id} 
+                href={`/articles/${article.slug}`}
+                className="group bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transform hover:-translate-y-2 transition-all duration-300 cursor-pointer"
               >
-                <h3 className="font-medium mb-2 text-lg group-hover:text-blue-600 transition-colors duration-200">{category.name}</h3>
-                <span className="text-sm text-gray-500 group-hover:text-gray-700 transition-colors duration-200">{category.count} articles</span>
+                {article.featuredImage && (
+                  <div className="overflow-hidden">
+                    <img 
+                      src={article.featuredImage} 
+                      alt={article.title} 
+                      className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                  </div>
+                )}
+                <div className="p-6">
+                  <span className="text-sm text-green-600 font-medium">Usage Guide</span>
+                  <h3 className="text-xl font-bold mt-1 mb-2 group-hover:text-green-600 transition-colors duration-200">
+                    {article.title}
+                  </h3>
+                  <p className="text-gray-600 mb-4 line-clamp-3">{article.excerpt}</p>
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm text-gray-500">{new Date(article.date).toLocaleDateString('en-US')}</span>
+                    <span className="text-green-600 group-hover:text-green-800 font-medium transition-colors duration-200">
+                      Read More →
+                    </span>
+                  </div>
+                </div>
               </a>
             ))}
           </div>
