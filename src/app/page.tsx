@@ -54,33 +54,6 @@ async function getFeaturedArticles() {
       date: '2025-08-14',
       excerpt: 'Life in 2025 brings unique challenges and stresses. Discover why investing in a high-end massage chair might be the wellness solution you need for modern living.',
       featuredImage: 'https://images.unsplash.com/photo-1600298881974-6be191ceeda1?ixlib=rb-4.0.3&auto=format&fit=crop&w=2340&q=80',
-    },
-    {
-      id: 4,
-      title: 'Massage Chair Budget Guide',
-      slug: 'massage-chair-budget-guide',
-      category: 'Buying Guide',
-      date: '2023-11-08',
-      excerpt: 'Complete budget guide for massage chairs. Learn what features you get at different price points and how to maximize your investment.',
-      featuredImage: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-4.0.3&auto=format&fit=crop&w=2340&q=80',
-    },
-    {
-      id: 5,
-      title: 'Proper Massage Chair Usage Guide',
-      slug: 'proper-massage-chair-usage',
-      category: 'Usage Guide',
-      date: '2023-11-12',
-      excerpt: 'Learn the correct way to use your massage chair for maximum therapeutic benefits while ensuring safety and comfort.',
-      featuredImage: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=2340&q=80',
-    },
-    {
-      id: 6,
-      title: 'Massage Chair Health Benefits',
-      slug: 'massage-chair-health-benefits',
-      category: 'Usage Guide',
-      date: '2023-11-15',
-      excerpt: 'Discover the proven health benefits of regular massage chair use, from stress reduction to improved circulation and pain relief.',
-      featuredImage: 'https://images.unsplash.com/photo-1559757148-5c350d0d3c56?ixlib=rb-4.0.3&auto=format&fit=crop&w=2340&q=80',
     }
   ];
 }
@@ -104,7 +77,7 @@ export default async function Home() {
         <section className="bg-gradient-to-r from-blue-500 to-indigo-600 rounded-xl p-8 mb-12 text-white">
           <div className="max-w-3xl">
             <h1 className="text-4xl font-bold mb-4">Find Your Perfect Massage Chair</h1>
-            <p className="text-xl mb-6">Expert reviews, buying guides, and usage tips to help you make the right choice for your wellness journey. Updated: {new Date().toLocaleDateString()}</p>
+            <p className="text-xl mb-6">Expert reviews, buying guides, and usage tips to help you make the right choice for your wellness journey.</p>
             <div className="flex flex-col sm:flex-row gap-4">
               <a href="/buying-guide" className="bg-white text-blue-600 px-6 py-3 rounded-lg font-medium hover:bg-blue-50 hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200 text-center">
                 Buying Guide
