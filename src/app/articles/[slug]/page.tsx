@@ -1,13 +1,13 @@
 import { Metadata } from 'next';
 
-// Function to fetch article data by slug
+// 获取文章数据的函数
 async function getArticleBySlug(slug: string) {
-  // In a real application, this should fetch data from a database or API
-  // This is just an example
-  // Note: localStorage cannot be used in server components
+  // 在实际应用中，这应该从数据库或API获取数据
+  // 这里只是示例
+  // 注意：服务器组件中不能使用localStorage
   try {
-    // This should be replaced with actual database or API calls
-    // Temporary mock data with English content
+    // 这里应该替换为实际的数据库或API调用
+    // 临时模拟数据（英文内容）
     const articles = [
       {
         id: 1,
@@ -34,12 +34,12 @@ async function getArticleBySlug(slug: string) {
     ];
     return articles.find((article) => article.slug === slug) || null;
   } catch (error) {
-    console.error('获取文章失败:', error);
+    console.error('Failed to fetch article:', error);
     return null;
   }
 }
 
-// 这个函数会在构建时或请求时运行，生成静态或服务器渲染的页面
+// 生成元数据函数
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
   // 从数据库或API获取文章数据
   const article = await getArticleBySlug(params.slug);
@@ -53,10 +53,10 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   
   return {
     title: article.title,
-    description: article.excerpt || `阅读关于${article.title}的详细内容`,
+    description: article.excerpt || `Read more about ${article.title}`,
     openGraph: {
       title: article.title,
-      description: article.excerpt || `阅读关于${article.title}的详细内容`,
+      description: article.excerpt || `Read more about ${article.title}`,
       images: article.featuredImage ? [{ url: article.featuredImage }] : []
     }
   };
@@ -66,7 +66,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 export async function generateStaticParams() {
   // 在实际应用中，这里应该从数据库或API获取所有文章的slug
   try {
-    // Temporary mock data with English slugs
+    // 临时模拟数据
     const articles = [
       { slug: 'best-massage-chairs-home-use' },
       { slug: 'massage-chair-maintenance' }
@@ -76,16 +76,17 @@ export async function generateStaticParams() {
       slug: article.slug,
     }));
   } catch (error) {
-    console.error('获取文章列表失败:', error);
+    console.error('Failed to fetch article list:', error);
     return [];
   }
 }
 
+// 修改页面组件定义，确保与Next.js 15兼容
 export default async function ArticlePage({ params }: { params: { slug: string } }) {
   const article = await getArticleBySlug(params.slug);
   
   if (!article) {
-    // 使用简单的404处理
+    // 简单的404处理
     return (
       <div className="max-w-4xl mx-auto py-8 px-4 text-center">
         <h1 className="text-3xl font-bold mb-4">Article Not Found</h1>
