@@ -104,7 +104,7 @@ export default async function Home() {
         <section className="bg-gradient-to-r from-blue-500 to-indigo-600 rounded-xl p-8 mb-12 text-white">
           <div className="max-w-3xl">
             <h1 className="text-4xl font-bold mb-4">Find Your Perfect Massage Chair</h1>
-            <p className="text-xl mb-6">Expert reviews, buying guides, and usage tips to help you make the right choice for your wellness journey.</p>
+            <p className="text-xl mb-6">Expert reviews, buying guides, and usage tips to help you make the right choice for your wellness journey. Updated: {new Date().toLocaleDateString()}</p>
             <div className="flex flex-col sm:flex-row gap-4">
               <a href="/buying-guide" className="bg-white text-blue-600 px-6 py-3 rounded-lg font-medium hover:bg-blue-50 hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200 text-center">
                 Buying Guide
