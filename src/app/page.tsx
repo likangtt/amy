@@ -60,10 +60,10 @@ export default function Home() {
     setFeaturedArticles(articles);
     
     // Calculate category counts based on actual articles
-    const buyingGuideCount = articles.filter(article => 
+    const buyingGuideCount = articles.filter((article: any) => 
       article.category === 'buying-guide' || article.category === 'Buying Guide'
     ).length;
-    const usageGuideCount = articles.filter(article => 
+    const usageGuideCount = articles.filter((article: any) => 
       article.category === 'usage-guide' || article.category === 'Usage Guide'
     ).length;
     
