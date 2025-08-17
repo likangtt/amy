@@ -1,150 +1,153 @@
-import Container from "@/app/_components/container";
-import { BannerAd } from "@/app/_components/banner-ad";
-import { GuideImage } from "@/app/_components/guide-image";
-import { SocialShare } from "@/app/_components/social-share";
+import { Metadata } from 'next';
+import Layout from '@/components/Layout';
 
-export default function BestMassageChairs2023() {
+export const metadata: Metadata = {
+  title: 'Best Massage Chairs for Home Use in 2023 - Top Picks & Reviews',
+  description: 'Discover the most worthwhile massage chairs on the market in 2023, from luxury high-end models to compact space-saving options.',
+};
+
+export default function BestMassageChairs2023Page() {
   return (
-    <main>
-      <Container>
-        <div className="max-w-2xl mx-auto">
-          <h1 className="text-4xl font-bold tracking-tighter leading-tight md:text-6xl mt-10 mb-6 text-blue-600">
-            Best Massage Chairs of 2023
+    <Layout>
+      <article className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <header className="mb-8">
+          <div className="mb-4">
+            <span className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium">
+              Product Recommendations
+            </span>
+          </div>
+          <h1 className="text-4xl font-bold text-gray-900 mb-4">
+            Best Massage Chairs for Home Use in 2023
           </h1>
-          
-          <BannerAd position="top" />
-          
-          <div className="prose max-w-none">
-            <p className="text-lg">
-              Finding the perfect massage chair can transform your daily relaxation routine. In this article, we review the top massage chairs of 2023, highlighting their features, benefits, and potential drawbacks.
-            </p>
-            
-            <GuideImage 
-              src="https://images.unsplash.com/photo-1545454675-3531b543be5d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" 
-              alt="Luxury massage chair with advanced features" 
-              caption="The Osaki OS-Pro Maestro offers premium features including 3D massage technology and body scanning."
-            />
-            
-            <h2>Top Premium Massage Chair: Osaki OS-Pro Maestro</h2>
-            <p>
-              The Osaki OS-Pro Maestro stands out as our top premium pick for 2023. This chair combines cutting-edge technology with exceptional comfort, offering a truly luxurious massage experience.
-            </p>
-            
-            <h3>Key Features:</h3>
-            <ul>
-              <li>Advanced 3D massage technology with adjustable intensity</li>
-              <li>Full body scanning to customize massage to your physique</li>
-              <li>Zero gravity positioning with 3 preset positions</li>
-              <li>Heated back and calf areas</li>
-              <li>Bluetooth speakers for immersive relaxation</li>
-              <li>Space-saving technology requiring only 3" of wall clearance</li>
-            </ul>
-            
-            <p>
-              While the Osaki OS-Pro Maestro comes with a premium price tag (approximately $8,999), its durability and comprehensive feature set make it a worthwhile investment for those seeking the ultimate home massage experience.
-            </p>
-            
-            <GuideImage 
-              src="https://images.unsplash.com/photo-1600881333168-2ef49b341f30?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" 
-              alt="Mid-range massage chair with excellent value" 
-              caption="The Kahuna LM-6800 offers excellent features at a mid-range price point."
-            />
-            
-            <h2>Best Value Massage Chair: Kahuna LM-6800</h2>
-            <p>
-              For those seeking excellent features without the premium price tag, the Kahuna LM-6800 offers outstanding value. This FDA-registered medical device provides therapeutic benefits at a fraction of the cost of high-end models.
-            </p>
-            
-            <h3>Key Features:</h3>
-            <ul>
-              <li>L-track massage system covering from neck to glutes</li>
-              <li>6 auto programs including yoga stretching</li>
-              <li>Zero gravity positioning</li>
-              <li>Air massage technology with 5 intensity levels</li>
-              <li>Space-saving design</li>
-              <li>Heating therapy for lower back and calves</li>
-            </ul>
-            
-            <p>
-              Priced around $2,799, the Kahuna LM-6800 delivers many features found in chairs costing twice as much, making it our top value pick for 2023.
-            </p>
-            
-            <GuideImage 
-              src="https://images.unsplash.com/photo-1596900779744-2bdc4a90509a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" 
-              alt="Compact massage chair for small spaces" 
-              caption="The Human Touch WholeBody 7.1 features a sleek design perfect for smaller living spaces."
-            />
-            
-            <h2>Best Compact Massage Chair: Human Touch WholeBody 7.1</h2>
-            <p>
-              Living in a smaller space doesn't mean you have to sacrifice massage quality. The Human Touch WholeBody 7.1 combines a sleek, contemporary design with effective massage capabilities in a more compact form factor.
-            </p>
-            
-            <h3>Key Features:</h3>
-            <ul>
-              <li>5 auto-massage programs</li>
-              <li>BodyMap PRO for targeted relief</li>
-              <li>Retractable ottoman with foot and calf massager</li>
-              <li>Warm air technology</li>
-              <li>Swivel base for easy positioning</li>
-              <li>Sleek, furniture-like appearance</li>
-            </ul>
-            
-            <p>
-              At approximately $3,999, the Human Touch WholeBody 7.1 is a mid-range option that doesn't compromise on quality while fitting comfortably in smaller living spaces.
-            </p>
-            
-            <h2>Comparison Table</h2>
-            <div className="overflow-x-auto">
-              <table className="min-w-full bg-white border border-gray-300">
-                <thead>
-                  <tr>
-                    <th className="border border-gray-300 px-4 py-2">Model</th>
-                    <th className="border border-gray-300 px-4 py-2">Price Range</th>
-                    <th className="border border-gray-300 px-4 py-2">Best For</th>
-                    <th className="border border-gray-300 px-4 py-2">Key Feature</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td className="border border-gray-300 px-4 py-2">Osaki OS-Pro Maestro</td>
-                    <td className="border border-gray-300 px-4 py-2">$8,999</td>
-                    <td className="border border-gray-300 px-4 py-2">Luxury experience</td>
-                    <td className="border border-gray-300 px-4 py-2">3D massage with body scanning</td>
-                  </tr>
-                  <tr>
-                    <td className="border border-gray-300 px-4 py-2">Kahuna LM-6800</td>
-                    <td className="border border-gray-300 px-4 py-2">$2,799</td>
-                    <td className="border border-gray-300 px-4 py-2">Value seekers</td>
-                    <td className="border border-gray-300 px-4 py-2">L-track system with yoga stretching</td>
-                  </tr>
-                  <tr>
-                    <td className="border border-gray-300 px-4 py-2">Human Touch WholeBody 7.1</td>
-                    <td className="border border-gray-300 px-4 py-2">$3,999</td>
-                    <td className="border border-gray-300 px-4 py-2">Small spaces</td>
-                    <td className="border border-gray-300 px-4 py-2">Compact design with retractable ottoman</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            
-            <h2>Conclusion</h2>
-            <p>
-              The best massage chair for you depends on your specific needs, available space, and budget. The Osaki OS-Pro Maestro offers the ultimate luxury experience, while the Kahuna LM-6800 provides excellent value. For those with space constraints, the Human Touch WholeBody 7.1 delivers quality massage therapy in a compact package.
-            </p>
-            
-            <p>
-              Before making your purchase, we recommend testing these chairs in person if possible, as personal comfort preferences can vary significantly.
+          <div className="flex items-center text-gray-500 text-sm mb-6">
+            <time dateTime="2023-10-28">October 28, 2023</time>
+            <span className="mx-2">•</span>
+            <span>12 min read</span>
+          </div>
+          <img 
+            src="https://images.unsplash.com/photo-1600881333168-2ef49b341f30?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80" 
+            alt="Luxury massage chair in modern home setting" 
+            className="w-full h-64 object-cover rounded-lg mb-8"
+          />
+        </header>
+
+        <div className="prose prose-lg max-w-none">
+          <p className="text-xl text-gray-600 mb-8">
+            After extensive testing and research, we've compiled the definitive list of the best massage chairs 
+            available in 2023. Whether you're looking for luxury features or budget-friendly options, 
+            we've got you covered.
+          </p>
+
+          <h2>Our Top Picks for 2023</h2>
+
+          <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-6">
+            <h3 className="text-lg font-semibold text-yellow-800 mb-2">🏆 Editor's Choice</h3>
+            <p className="text-yellow-700">
+              The <strong>Osaki OS-4000XT</strong> offers the best balance of features, quality, and value for most users.
             </p>
           </div>
-          
-          <div className="mt-8 mb-8">
-            <SocialShare title="Best Massage Chairs of 2023" url="/articles/best-massage-chairs-2023" />
+
+          <h3>1. Best Overall: Osaki OS-4000XT</h3>
+          <p><strong>Price Range:</strong> $4,000 - $5,000</p>
+          <p>
+            The Osaki OS-4000XT stands out with its comprehensive feature set and reliable performance. 
+            It offers 4D massage technology, L-track design, and zero gravity positioning.
+          </p>
+          <p><strong>Key Features:</strong></p>
+          <ul>
+            <li>4D massage rollers with adjustable intensity</li>
+            <li>L-track system covering neck to glutes</li>
+            <li>Zero gravity positioning</li>
+            <li>Heat therapy in lumbar region</li>
+            <li>Bluetooth connectivity</li>
+            <li>Space-saving design</li>
+          </ul>
+
+          <h3>2. Best Luxury: Human Touch Novo XT2</h3>
+          <p><strong>Price Range:</strong> $8,000 - $10,000</p>
+          <p>
+            For those seeking the ultimate massage experience, the Human Touch Novo XT2 delivers 
+            premium materials and advanced technology.
+          </p>
+          <p><strong>Key Features:</strong></p>
+          <ul>
+            <li>CloudTouch massage technology</li>
+            <li>Full-body stretching programs</li>
+            <li>Premium leather upholstery</li>
+            <li>Advanced body scanning</li>
+            <li>Chromotherapy lighting</li>
+            <li>Voice control capability</li>
+          </ul>
+
+          <h3>3. Best Budget: Real Relax Favor-03</h3>
+          <p><strong>Price Range:</strong> $1,500 - $2,000</p>
+          <p>
+            The Real Relax Favor-03 proves you don't need to break the bank for a quality massage experience.
+          </p>
+          <p><strong>Key Features:</strong></p>
+          <ul>
+            <li>SL-track massage system</li>
+            <li>Zero gravity recline</li>
+            <li>Heat therapy</li>
+            <li>Air compression massage</li>
+            <li>Compact design</li>
+            <li>Easy-to-use remote</li>
+          </ul>
+
+          <h3>4. Best for Small Spaces: Kahuna LM6800</h3>
+          <p><strong>Price Range:</strong> $3,000 - $4,000</p>
+          <p>
+            Perfect for apartments or smaller rooms, the Kahuna LM6800 offers full-featured massage 
+            in a space-efficient design.
+          </p>
+          <p><strong>Key Features:</strong></p>
+          <ul>
+            <li>Space-saving technology (only 3 inches from wall)</li>
+            <li>L-track roller system</li>
+            <li>Yoga stretching programs</li>
+            <li>Heat therapy</li>
+            <li>Multiple massage techniques</li>
+          </ul>
+
+          <h2>What to Look for in 2023</h2>
+          <p>This year's massage chair trends focus on:</p>
+          <ul>
+            <li><strong>Smart Integration:</strong> App control and voice commands</li>
+            <li><strong>Personalization:</strong> AI-powered massage customization</li>
+            <li><strong>Wellness Features:</strong> Chromotherapy, aromatherapy integration</li>
+            <li><strong>Space Efficiency:</strong> Wall-hugger designs for smaller homes</li>
+            <li><strong>Sustainability:</strong> Eco-friendly materials and energy efficiency</li>
+          </ul>
+
+          <h2>Buying Tips for 2023</h2>
+          <ol>
+            <li><strong>Test Before You Buy:</strong> Visit showrooms when possible</li>
+            <li><strong>Check Warranty:</strong> Look for at least 3-year coverage</li>
+            <li><strong>Consider Delivery:</strong> White glove service is worth the extra cost</li>
+            <li><strong>Read Reviews:</strong> Focus on long-term user experiences</li>
+            <li><strong>Compare Features:</strong> Don't pay for features you won't use</li>
+          </ol>
+
+          <h2>Maintenance and Care</h2>
+          <p>
+            To ensure your investment lasts, follow these maintenance tips:
+          </p>
+          <ul>
+            <li>Regular cleaning with appropriate products</li>
+            <li>Periodic professional servicing</li>
+            <li>Proper usage according to manufacturer guidelines</li>
+            <li>Keep in climate-controlled environment</li>
+          </ul>
+
+          <div className="bg-blue-50 p-6 rounded-lg mt-8">
+            <h3 className="text-lg font-semibold text-blue-900 mb-2">Ready to Purchase?</h3>
+            <p className="text-blue-800">
+              Remember that the best massage chair is the one that fits your specific needs, space, 
+              and budget. Take time to research and test different options before making your decision.
+            </p>
           </div>
-          
-          <BannerAd position="bottom" />
         </div>
-      </Container>
-    </main>
+      </article>
+    </Layout>
   );
 }
