@@ -5,20 +5,23 @@ import Layout from '@/components/Layout';
 
 // 客户端组件 - 处理文章显示和从localStorage获取数据
 export default function ArticleClient({ 
-  initialArticle, 
+  initialArticlePromise, 
   slug 
 }: { 
-  initialArticle: any; 
+  initialArticlePromise: Promise<any>; 
   slug: string 
 }) {
-  const [article, setArticle] = useState<any>(initialArticle);
-  const [loading, setLoading] = useState(!initialArticle);
+  const [article, setArticle] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
   
   useEffect(() => {
-    // 如果已经有初始文章数据，不需要从localStorage获取
-    if (initialArticle) {
-      return;
-    }
+    // 解析初始文章数据Promise
+    initialArticlePromise.then(serverArticle => {
+      if (serverArticle) {
+        setArticle(serverArticle);
+        setLoading(false);
+        return;
+      }
     
     // 尝试从localStorage获取文章数据
     try {
