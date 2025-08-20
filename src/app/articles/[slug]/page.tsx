@@ -1,7 +1,7 @@
 import ArticleClient from './client';
 
-// 文章页面组件 - 不使用类型注解
-export default function ArticlePage(props) {
+// 文章页面组件
+export default function ArticlePage(props: any) {
   // 将slug传递给客户端组件
   return <ArticleClient slug={props.params.slug} />;
 }
