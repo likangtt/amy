@@ -1,8 +1,9 @@
 // 文章页面组件的props类型
-interface ArticlePageProps {
+interface PageProps {
   params: {
     slug: string;
   };
+  searchParams?: { [key: string]: string | string[] | undefined };
 }
 
 // 文章数据接口
@@ -176,7 +177,7 @@ A: It offers similar <em>features</em> at half the price, but Japanese chairs st
   return null;
 }
 
-export default function ArticlePage({ params }: ArticlePageProps) {
+export default function ArticlePage({ params, searchParams }: PageProps) {
   const article = getArticleData(params.slug);
 
   if (!article) {
