@@ -5,6 +5,9 @@ const nextConfig = {
     unoptimized: true,
   },
   
+  // 禁用严格模式，可能减少一些错误
+  reactStrictMode: false,
+  
   // 添加重定向规则
   async redirects() {
     return [

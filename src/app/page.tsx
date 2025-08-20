@@ -21,7 +21,7 @@ function getFeaturedArticles() {
       // Return only published articles, sorted by date (newest first)
       const publishedArticles = articles
         .filter((article: any) => article.status === 'Published' || article.status === '已发布')
-        .sort((a: any, b: any) => new Date(b.date || b.createdAt).getTime() - new Date(a.date || a.createdAt).getTime())
+        .sort((a: any, b: any) => new Date(b.date || b.publishedAt || b.createdAt).getTime() - new Date(a.date || a.publishedAt || a.createdAt).getTime())
         .slice(0, 6); // Show up to 6 featured articles
       console.log('Published articles:', publishedArticles);
       return publishedArticles;
@@ -214,7 +214,7 @@ export default function Home() {
                   </h3>
                   <p className="text-gray-600 mb-4 line-clamp-3">{article.excerpt}</p>
                   <div className="flex justify-between items-center">
-                    <span className="text-sm text-gray-500">{new Date(article.date).toLocaleDateString('en-US')}</span>
+                    <span className="text-sm text-gray-500">{new Date(article.date || article.publishedAt).toLocaleDateString('en-US')}</span>
                     <span className="text-blue-600 group-hover:text-blue-800 font-medium transition-colors duration-200">
                       Read More →
                     </span>
@@ -265,7 +265,7 @@ export default function Home() {
                   </h3>
                   <p className="text-gray-600 mb-4 line-clamp-3">{article.excerpt}</p>
                   <div className="flex justify-between items-center">
-                    <span className="text-sm text-gray-500">{new Date(article.date).toLocaleDateString('en-US')}</span>
+                    <span className="text-sm text-gray-500">{new Date(article.date || article.publishedAt).toLocaleDateString('en-US')}</span>
                     <span className="text-blue-600 group-hover:text-blue-800 font-medium transition-colors duration-200">
                       Read More →
                     </span>

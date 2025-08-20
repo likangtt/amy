@@ -1,159 +1,248 @@
-"use client";
+'use client';
 
 import { useState, useEffect } from 'react';
-import Layout from '@/components/Layout';
 
-// 获取文章数据的函数
-function getArticleFromLocalStorage(slug: string) {
-  try {
-    // 尝试从localStorage获取文章
-    let articlesData = localStorage.getItem('articles') || localStorage.getItem('blog_articles');
-    if (articlesData) {
-      const articles = JSON.parse(articlesData);
-      return articles.find((a: any) => a.slug === slug);
-    }
-  } catch (error) {
-    console.error('Error loading article from localStorage:', error);
-  }
-  return null;
+interface Article {
+  id: number;
+  title: string;
+  content: string;
+  excerpt: string;
+  featuredImage: string;
+  category: string;
+  tags: string[];
+  publishedAt: string;
+  slug: string;
+  status: string;
 }
 
-// 获取预定义文章数据
-function getFallbackArticle(slug: string) {
-  // 临时模拟数据（作为后备）
-  const fallbackArticles = [
-    {
-      id: 1,
-      title: 'Best Massage Chairs for Home Use',
-      slug: 'best-massage-chairs-home-use',
-      category: 'Buying Guide',
-      date: '2023-11-01',
-      content: '<p>Finding the perfect massage chair for your home can be challenging. This guide will help you understand the key features to look for...</p>',
-      excerpt: 'A comprehensive guide to selecting the best massage chair for your home',
-      featuredImage: 'https://via.placeholder.com/800x400',
-      tags: ['massage chairs', 'buying guide', 'home use']
-    },
-    {
-      id: 2,
-      title: 'How to Maintain Your Massage Chair',
-      slug: 'massage-chair-maintenance',
-      category: 'Maintenance',
-      date: '2023-11-05',
-      content: '<p>Regular maintenance of your massage chair can extend its lifespan and ensure optimal performance...</p>',
-      excerpt: 'Tips and tricks for keeping your massage chair in top condition',
-      featuredImage: 'https://via.placeholder.com/800x400',
-      tags: ['maintenance', 'cleaning', 'longevity']
-    },
-    {
-      id: 3,
-      title: 'Massage Chair Buying Guide 2025: Best 4D SL-Track Chairs for Home Use',
-      slug: 'massage-chair-buying-guide-2025-best-4d-sl-track-chairs-for-home-use',
-      category: 'Buying Guide',
-      date: '2025-01-01',
-      content: '<p>Discover the best 4D SL-Track massage chairs for home use in 2025. Our comprehensive guide helps you make an informed decision.</p>',
-      excerpt: 'Find the perfect 4D SL-Track massage chair for your home in 2025',
-      featuredImage: 'https://images.unsplash.com/photo-1545454675-3531b543be5d?ixlib=rb-4.0.3&auto=format&fit=crop&w=2340&q=80',
-      tags: ['4D massage chairs', 'SL-Track', '2025 guide', 'home use']
-    }
-  ];
-  
-  // 首先检查是否有匹配的预定义文章
-  return fallbackArticles.find((article) => article.slug === slug);
+interface ArticleClientProps {
+  slug: string;
 }
 
-// 客户端组件 - 处理文章显示和从localStorage获取数据
-export default function ArticleClient({ slug }: { slug: string }) {
-  const [article, setArticle] = useState<any>(null);
+export default function ArticleClient({ slug }: ArticleClientProps) {
+  const [article, setArticle] = useState<Article | null>(null);
   const [loading, setLoading] = useState(true);
-  
+
   useEffect(() => {
-    // 首先尝试从预定义文章中获取
-    const fallbackArticle = getFallbackArticle(slug);
-    if (fallbackArticle) {
-      setArticle(fallbackArticle);
-      setLoading(false);
-      return;
+    // 直接设置预定义文章数据
+    if (slug === "luxury-4d-sl-track-massage-chair-review-2025-affordable-full-body-relaxation") {
+      const predefinedArticle: Article = {
+        id: 1,
+        title: "Luxury 4D SL-Track Massage Chair Review 2025 – Affordable Full-Body Relaxation?",
+        excerpt: "We reviewed the Luxury 4D SL-Track Massage Chair with 18 auto programs, heat therapy, foot rollers, and body scan. Is it worth the $1,600 price tag in 2025?",
+        featuredImage: "/images/luxury-4d-massage-chair.jpg",
+        category: "buying-guide",
+        tags: ["massage-chair", "4d", "sl-track", "2025", "luxury", "review"],
+        publishedAt: "2025-01-20",
+        slug: "luxury-4d-sl-track-massage-chair-review-2025-affordable-full-body-relaxation",
+        status: "Published",
+        content: `<h1>Luxury 4D SL-Track Massage Chair Review 2025</h1>
+<p><em>Full-body massage at home without draining your wallet? Let's find out.</em></p>
+
+<hr>
+
+<p><img src="/images/luxury-4d-massage-chair.jpg" alt="Luxury 4D Massage Chair Amazon" title="Luxury 4D Massage Chair with SL-track and zero gravity" style="width: 100%; height: auto;"></p>
+
+<h2>Quick Overview</h2>
+<p>This <strong>Luxury 4D Massage Chair</strong> (available on Amazon around $1,600) promises premium features at a mid-range price:</p>
+
+<ul>
+<li><strong>4D Massage Mechanism</strong> – adjustable speed, depth, and rhythm</li>
+<li><strong>SL-Track</strong> – covers neck to glutes</li>
+<li><strong>18 Auto Massage Programs</strong></li>
+<li><strong>6 Professional Massage Techniques</strong> (kneading, knocking, shiatsu, etc.)</li>
+<li><strong>Heat Therapy</strong> – waist + calves</li>
+<li><strong>Zero Gravity Recline</strong> – 3 levels</li>
+<li><strong>Foot Rollers + Extended Calf Massage</strong></li>
+<li><strong>Wireless Charging + LCD Touchscreen</strong></li>
+<li><strong>Body Scan for personalized fit</strong></li>
+</ul>
+
+<hr>
+
+<h2>What Customers Love 👍</h2>
+
+<ul>
+<li><strong>Great value for money</strong> – Buyers mention this chair delivers features usually found in $3,000+ models.</li>
+<li><strong>Strong massage intensity</strong> – Deep kneading and shiatsu modes actually relieve tension, not just "vibration."</li>
+<li><strong>Full-body coverage</strong> – SL-track + airbags cover shoulders, arms, waist, calves, and feet.</li>
+<li><strong>Comfortable heat therapy</strong> – Calf and waist heating functions are especially popular in winter.</li>
+<li><strong>User-friendly</strong> – Touchscreen + one-touch programs make it simple, even for older adults.</li>
+<li><strong>Stylish design</strong> – Futuristic look, fits modern living rooms.</li>
+</ul>
+
+<hr>
+
+<h2>Where It Falls Short 👎</h2>
+
+<ul>
+<li><strong>Bulky size</strong> – At over 350 lbs, it requires at least 31" (80cm) door clearance.</li>
+<li><strong>Massage can feel intense</strong> – Some users found the pressure too strong, especially for seniors.</li>
+<li><strong>Noise levels</strong> – A few buyers mention the rollers aren't the quietest.</li>
+<li><strong>Customer support</strong> – Mixed reviews: some received quick service, others reported slow responses.</li>
+<li><strong>Assembly</strong> – White-glove delivery is recommended; self-assembly can be tough.</li>
+</ul>
+
+<hr>
+
+<h2>Who Should Buy This Massage Chair?</h2>
+
+<ul>
+<li><strong>Office workers</strong> – Strong back & neck massage programs help after long desk hours.</li>
+<li><strong>Fitness enthusiasts</strong> – Stretching + shiatsu functions help recovery.</li>
+<li><strong>Families</strong> – Multiple auto programs + adjustable intensity suit different members.</li>
+<li><strong>Budget-conscious buyers</strong> – Mid-range price for high-end features.</li>
+</ul>
+
+<p>⚠️ Not ideal for: very elderly users or those needing extra-gentle massage.</p>
+
+<hr>
+
+<h2>Specs at a Glance</h2>
+
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Details</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Mechanism</td>
+<td>4D, 6 massage techniques</td>
+</tr>
+<tr>
+<td>Track</td>
+<td>SL-track (neck to glutes)</td>
+</tr>
+<tr>
+<td>Auto Programs</td>
+<td>18 modes</td>
+</tr>
+<tr>
+<td>Heat</td>
+<td>Waist + calf</td>
+</tr>
+<tr>
+<td>Recline</td>
+<td>3-level zero gravity</td>
+</tr>
+<tr>
+<td>Airbags</td>
+<td>Shoulders, arms, hips, calves</td>
+</tr>
+<tr>
+<td>Foot Massage</td>
+<td>Rollers + airbags</td>
+</tr>
+<tr>
+<td>Controls</td>
+<td>LCD touchscreen + wireless charging</td>
+</tr>
+<tr>
+<td>Weight Capacity</td>
+<td>Up to 330 lbs</td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h2>FAQ</h2>
+
+<p><strong>Q: Is this chair really "4D"?</strong><br>
+A: Yes, it adjusts depth, speed, and rhythm — though not quite as refined as $5,000+ Japanese chairs.</p>
+
+<p><strong>Q: Can seniors use it?</strong><br>
+A: Yes, but the intensity may be too strong. Start on low settings.</p>
+
+<p><strong>Q: How much space do I need?</strong><br>
+A: Door clearance at least 31" (80cm). It's heavy (350 lbs), so white-glove delivery is recommended.</p>
+
+<p><strong>Q: How does it compare to Panasonic or Inada?</strong><br>
+A: It offers similar <em>features</em> at half the price, but Japanese chairs still lead in durability and whisper-quiet operation.</p>
+
+<hr>
+
+<h2>Final Verdict</h2>
+
+<p>The <strong>Luxury 4D SL-Track Massage Chair</strong> is a solid pick for buyers who want <strong>premium features without a $5,000 price tag</strong>.</p>
+
+<p>It won't beat Panasonic or Inada in long-term reliability, but for <strong>$1,600</strong>, it's one of the best value massage chairs on Amazon in 2025.</p>
+
+<p>👉 <em>Best for younger professionals, families, and anyone wanting a full-body massage chair without breaking the bank.</em></p>
+
+<hr>`
+      };
+      
+      setArticle(predefinedArticle);
     }
     
-    // 然后尝试从localStorage获取
-    const localArticle = getArticleFromLocalStorage(slug);
-    if (localArticle) {
-      setArticle(localArticle);
-      setLoading(false);
-      return;
-    }
-    
-    // 如果都没有找到，设置loading为false
     setLoading(false);
   }, [slug]);
-  
-  // 设置文档标题
-  useEffect(() => {
-    if (article) {
-      document.title = `${article.title} | Massage Chair Review`;
-    } else if (!loading) {
-      document.title = 'Article Not Found | Massage Chair Review';
-    }
-  }, [article, loading]);
-  
+
   if (loading) {
     return (
-      <Layout>
-        <div className="max-w-4xl mx-auto py-8 px-4 text-center">
-          <p>Loading article...</p>
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600 mx-auto"></div>
+          <p className="mt-4 text-gray-600">Loading article...</p>
         </div>
-      </Layout>
+      </div>
     );
   }
-  
+
   if (!article) {
-    // 简单的404处理
     return (
-      <Layout>
-        <div className="max-w-4xl mx-auto py-8 px-4 text-center">
-          <h1 className="text-3xl font-bold mb-4">Article Not Found</h1>
-          <p>The requested article does not exist or has been removed</p>
-          <a href="/" className="text-blue-600 hover:underline mt-4 inline-block">Return to Homepage</a>
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <h1 className="text-4xl font-bold text-gray-900 mb-4">Article Not Found</h1>
+          <p className="text-gray-600">The article you're looking for doesn't exist.</p>
         </div>
-      </Layout>
+      </div>
     );
   }
-  
+
   return (
-    <Layout>
-      <article className="max-w-4xl mx-auto py-8 px-4">
-        {article.featuredImage && (
-          <div className="mb-6">
-            <img 
-              src={article.featuredImage} 
-              alt={article.title} 
-              className="w-full h-auto rounded-lg shadow-lg"
-            />
-          </div>
-        )}
-        
-        <h1 className="text-3xl font-bold mb-4">{article.title}</h1>
-        
-        <div className="flex items-center text-gray-600 mb-6">
-          <span>{new Date(article.date).toLocaleDateString('en-US')}</span>
-          <span className="mx-2">•</span>
-          <span>{article.category}</span>
-          {article.tags && article.tags.length > 0 && (
-            <>
-              <span className="mx-2">•</span>
-              <div className="flex flex-wrap gap-2">
-                {article.tags.map((tag: string, index: number) => (
-                  <span key={index} className="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full">
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            </>
-          )}
+    <article className="max-w-4xl mx-auto px-4 py-8">
+      <header className="mb-8">
+        <div className="mb-4">
+          <span className="inline-block bg-blue-100 text-blue-800 text-sm px-3 py-1 rounded-full">
+            {article.category}
+          </span>
         </div>
         
-        <div className="prose max-w-none" dangerouslySetInnerHTML={{ __html: article.content }} />
-      </article>
-    </Layout>
+        <h1 className="text-4xl font-bold text-gray-900 mb-4">
+          {article.title}
+        </h1>
+        
+        <div className="flex items-center text-gray-600 text-sm mb-6">
+          <time dateTime={article.publishedAt}>
+            January 20, 2025
+          </time>
+        </div>
+      </header>
+      
+      <div 
+        className="prose prose-lg max-w-none"
+        dangerouslySetInnerHTML={{ __html: article.content }}
+      />
+      
+      {article.tags && article.tags.length > 0 && (
+        <footer className="mt-12 pt-8 border-t border-gray-200">
+          <div className="flex flex-wrap gap-2">
+            {article.tags.map((tag, index) => (
+              <span
+                key={index}
+                className="inline-block bg-gray-100 text-gray-700 text-sm px-3 py-1 rounded-full"
+              >
+                #{tag}
+              </span>
+            ))}
+          </div>
+        </footer>
+      )}
+    </article>
   );
 }
