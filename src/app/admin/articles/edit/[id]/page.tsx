@@ -88,15 +88,19 @@ export default function EditArticle({ params }: { params: Promise<{ id: string }
     if (!id) return; // Wait for id to be set
     
     try {
-      // Try to get article from localStorage
-      const savedArticles = localStorage.getItem('blog_articles');
+      // 尝试从两个可能的localStorage键获取文章
+      let savedArticles = localStorage.getItem('blog_articles');
+      if (!savedArticles) {
+        savedArticles = localStorage.getItem('articles');
+      }
+      
       let articlesArray = savedArticles ? JSON.parse(savedArticles) : [];
       
-      // Find article with specified ID
-      const foundArticle = articlesArray.find((article: any) => article.id.toString() === id);
+      // 查找指定ID的文章
+      const foundArticle = articlesArray.find((article: any) => article.id && article.id.toString() === id);
       
       if (foundArticle) {
-        // If article found in localStorage
+        // 如果在localStorage中找到文章
         setArticle({
           title: foundArticle.title || "",
           slug: foundArticle.slug || "",
@@ -110,7 +114,7 @@ export default function EditArticle({ params }: { params: Promise<{ id: string }
           views: foundArticle.views || 0
         });
       } else {
-        // If not found in localStorage, try using mock data
+        // 如果在localStorage中找不到，尝试使用模拟数据
         const mockArticle = MOCK_ARTICLES[id as keyof typeof MOCK_ARTICLES];
         
         if (mockArticle) {
@@ -127,12 +131,12 @@ export default function EditArticle({ params }: { params: Promise<{ id: string }
             views: mockArticle.views
           });
         } else {
-          // If not found in mock data either, show article doesn't exist
+          // 如果在模拟数据中也找不到，显示文章不存在
           setNotFound(true);
         }
       }
     } catch (error) {
-      console.error("Failed to retrieve article:", error);
+      console.error("获取文章失败:", error);
       setNotFound(true);
     }
   }, [id]);
@@ -156,47 +160,48 @@ export default function EditArticle({ params }: { params: Promise<{ id: string }
     });
   };
 
-  // Handle form submission
+  // 处理表单提交
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setIsSaving(true);
     
     try {
-      // Get existing articles
+      // 获取现有文章
       const savedArticles = localStorage.getItem('blog_articles');
       let articlesArray = savedArticles ? JSON.parse(savedArticles) : [];
       
-      // Find article index
-      const articleIndex = articlesArray.findIndex((a: any) => a.id.toString() === id);
+      // 查找文章索引
+      const articleIndex = articlesArray.findIndex((a: any) => a.id && a.id.toString() === id);
       
-      // Update article object
+      // 更新文章对象
       const updatedArticle = {
         ...article,
-        id: parseInt(id)
+        id: parseInt(id) || Date.now() // 确保有有效的ID
       };
       
       if (articleIndex !== -1) {
-        // Update existing article
+        // 更新现有文章
         articlesArray[articleIndex] = updatedArticle;
       } else {
-        // If article doesn't exist, add to beginning of array
+        // 如果文章不存在，添加到数组开头
         articlesArray.unshift(updatedArticle);
       }
       
-      // Save back to localStorage
+      // 保存回localStorage（同时保存到两个键）
       localStorage.setItem('blog_articles', JSON.stringify(articlesArray));
+      localStorage.setItem('articles', JSON.stringify(articlesArray));
       
       setIsSaving(false);
-      setSaveMessage("Article updated successfully!");
+      setSaveMessage("文章更新成功！");
       
-      // Redirect to article list after 2 seconds
+      // 2秒后重定向到文章列表
       setTimeout(() => {
         router.push('/admin/articles');
       }, 2000);
     } catch (error) {
-      console.error("Failed to save article:", error);
+      console.error("保存文章失败:", error);
       setIsSaving(false);
-      setSaveMessage("Save failed, please try again");
+      setSaveMessage("保存失败，请重试");
     }
   };
 

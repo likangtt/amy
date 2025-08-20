@@ -3,70 +3,70 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 
-// 模拟文章数据
+// Mock article data
 const MOCK_ARTICLES = [
   { 
     id: 1, 
-    title: "最佳按摩椅2023年榜单", 
-    category: "产品评测", 
+    title: "Best Massage Chairs 2023 Rankings", 
+    category: "Product Reviews", 
     date: "2023-08-10", 
-    status: "已发布",
+    status: "Published",
     views: 1245
   },
   { 
     id: 2, 
-    title: "如何选择适合您的按摩椅", 
-    category: "选购指南", 
+    title: "How to Choose the Right Massage Chair", 
+    category: "Buying Guide", 
     date: "2023-08-05", 
-    status: "已发布",
+    status: "Published",
     views: 876
   },
   { 
     id: 3, 
-    title: "按摩椅的健康益处", 
-    category: "健康知识", 
+    title: "Health Benefits of Massage Chairs", 
+    category: "Health Knowledge", 
     date: "2023-07-28", 
-    status: "草稿",
+    status: "Draft",
     views: 0
   },
   { 
     id: 4, 
-    title: "按摩椅维护指南", 
-    category: "使用指南", 
+    title: "Massage Chair Maintenance Guide", 
+    category: "Usage Guide", 
     date: "2023-07-20", 
-    status: "已发布",
+    status: "Published",
     views: 543
   },
   { 
     id: 5, 
-    title: "按摩椅行业最新趋势", 
-    category: "行业资讯", 
+    title: "Latest Trends in Massage Chair Industry", 
+    category: "Industry News", 
     date: "2023-07-15", 
-    status: "已发布",
+    status: "Published",
     views: 321
   },
   { 
     id: 6, 
-    title: "按摩椅与传统按摩的区别", 
-    category: "健康知识", 
+    title: "Differences Between Massage Chairs and Traditional Massage", 
+    category: "Health Knowledge", 
     date: "2023-07-10", 
-    status: "已发布",
+    status: "Published",
     views: 654
   },
   { 
     id: 7, 
-    title: "高端按摩椅功能详解", 
-    category: "产品评测", 
+    title: "High-End Massage Chair Features Explained", 
+    category: "Product Reviews", 
     date: "2023-07-05", 
-    status: "草稿",
+    status: "Draft",
     views: 0
   },
   { 
     id: 8, 
-    title: "按摩椅使用常见问题解答", 
-    category: "使用指南", 
+    title: "Common Questions About Massage Chair Usage", 
+    category: "Usage Guide", 
     date: "2023-06-28", 
-    status: "已发布",
+    status: "Published",
     views: 432
   },
 ];
@@ -74,21 +74,32 @@ const MOCK_ARTICLES = [
 export default function ArticlesPage() {
   const [articles, setArticles] = useState<any[]>([]);
   
-  // 在组件加载时从localStorage获取文章
+  // Load articles from localStorage when component mounts
   useEffect(() => {
-    // 尝试从localStorage获取文章
+    // Try to get articles from localStorage
     try {
-      const savedArticles = localStorage.getItem('blog_articles');
+      // First try to get from blog_articles
+      let savedArticles = localStorage.getItem('blog_articles');
+      
+      // If not found in blog_articles, try articles
+      if (!savedArticles) {
+        savedArticles = localStorage.getItem('articles');
+        // If found in articles, also update blog_articles
+        if (savedArticles) {
+          localStorage.setItem('blog_articles', savedArticles);
+        }
+      }
+      
       let articlesArray = savedArticles ? JSON.parse(savedArticles) : [];
       
-      // 如果localStorage中没有文章，使用模拟数据
+      // If no articles in localStorage, use mock data
       if (articlesArray.length === 0) {
         articlesArray = MOCK_ARTICLES;
       }
       
       setArticles(articlesArray);
     } catch (error) {
-      console.error("获取文章失败:", error);
+      console.error("Failed to retrieve articles:", error);
       setArticles(MOCK_ARTICLES);
     }
   }, []);
@@ -97,7 +108,7 @@ export default function ArticlesPage() {
   const [statusFilter, setStatusFilter] = useState("");
   const [selectedArticles, setSelectedArticles] = useState<number[]>([]);
   
-  // 处理搜索和筛选
+  // Handle search and filtering
   const filteredArticles = articles.filter(article => {
     const matchesSearch = article.title.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesCategory = categoryFilter === "" || article.category === categoryFilter;
@@ -105,40 +116,42 @@ export default function ArticlesPage() {
     return matchesSearch && matchesCategory && matchesStatus;
   });
   
-  // 处理批量删除
+  // Handle bulk delete
   const handleBulkDelete = () => {
     if (selectedArticles.length === 0) return;
     
-    if (confirm(`确定要删除选中的 ${selectedArticles.length} 篇文章吗？`)) {
+    if (confirm(`Are you sure you want to delete ${selectedArticles.length} selected articles?`)) {
       const updatedArticles = articles.filter(article => !selectedArticles.includes(article.id));
       setArticles(updatedArticles);
       setSelectedArticles([]);
       
-      // 更新localStorage
+      // Update localStorage
       try {
         localStorage.setItem('blog_articles', JSON.stringify(updatedArticles));
+        localStorage.setItem('articles', JSON.stringify(updatedArticles));
       } catch (error) {
-        console.error("保存文章失败:", error);
+        console.error("Failed to save articles:", error);
       }
     }
   };
   
-  // 处理单篇文章删除
+  // Handle single article delete
   const handleDelete = (id: number) => {
-    if (confirm("确定要删除这篇文章吗？")) {
+    if (confirm("Are you sure you want to delete this article?")) {
       const updatedArticles = articles.filter(article => article.id !== id);
       setArticles(updatedArticles);
       
-      // 更新localStorage
+      // Update localStorage
       try {
         localStorage.setItem('blog_articles', JSON.stringify(updatedArticles));
+        localStorage.setItem('articles', JSON.stringify(updatedArticles));
       } catch (error) {
-        console.error("保存文章失败:", error);
+        console.error("Failed to save articles:", error);
       }
     }
   };
   
-  // 处理全选/取消全选
+  // Handle select all / deselect all
   const handleSelectAll = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.checked) {
       setSelectedArticles(filteredArticles.map(article => article.id));
@@ -147,7 +160,7 @@ export default function ArticlesPage() {
     }
   };
   
-  // 处理单选
+  // Handle single select
   const handleSelect = (id: number) => {
     if (selectedArticles.includes(id)) {
       setSelectedArticles(selectedArticles.filter(articleId => articleId !== id));
@@ -156,30 +169,30 @@ export default function ArticlesPage() {
     }
   };
   
-  // 获取唯一的分类列表
+  // Get unique categories
   const categories = Array.from(new Set(articles.map(article => article.category)));
   
   return (
     <div>
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold">文章管理</h1>
+        <h1 className="text-2xl font-bold">Article Management</h1>
         <Link href="/admin/articles/new" className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
-          新建文章
+          New Article
         </Link>
       </div>
       
-      {/* 搜索和筛选 */}
+      {/* Search and Filter */}
       <div className="bg-white p-4 rounded-lg shadow mb-6">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
           <div>
             <label htmlFor="search" className="block text-sm font-medium text-gray-700 mb-1">
-              搜索
+              Search
             </label>
             <input
               type="text"
               id="search"
               className="w-full border border-gray-300 rounded-md px-3 py-2"
-              placeholder="搜索文章标题..."
+              placeholder="Search article titles..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
@@ -187,7 +200,7 @@ export default function ArticlesPage() {
           
           <div>
             <label htmlFor="category" className="block text-sm font-medium text-gray-700 mb-1">
-              分类
+              Category
             </label>
             <select
               id="category"
@@ -195,7 +208,7 @@ export default function ArticlesPage() {
               value={categoryFilter}
               onChange={(e) => setCategoryFilter(e.target.value)}
             >
-              <option value="">全部分类</option>
+              <option value="">All Categories</option>
               {categories.map((category, index) => (
                 <option key={index} value={category}>
                   {category}
@@ -206,7 +219,7 @@ export default function ArticlesPage() {
           
           <div>
             <label htmlFor="status" className="block text-sm font-medium text-gray-700 mb-1">
-              状态
+              Status
             </label>
             <select
               id="status"
@@ -214,9 +227,9 @@ export default function ArticlesPage() {
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
             >
-              <option value="">全部状态</option>
-              <option value="已发布">已发布</option>
-              <option value="草稿">草稿</option>
+              <option value="">All Statuses</option>
+              <option value="Published">Published</option>
+              <option value="Draft">Draft</option>
             </select>
           </div>
           
@@ -229,30 +242,30 @@ export default function ArticlesPage() {
                 setStatusFilter("");
               }}
             >
-              重置筛选
+              Reset Filters
             </button>
           </div>
         </div>
       </div>
       
-      {/* 批量操作 */}
+      {/* Bulk Actions */}
       {selectedArticles.length > 0 && (
         <div className="bg-blue-50 p-4 rounded-lg shadow mb-6 flex justify-between items-center">
           <p className="text-blue-700">
-            已选择 {selectedArticles.length} 篇文章
+            {selectedArticles.length} articles selected
           </p>
           <div className="flex space-x-2">
             <button
               className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700"
               onClick={handleBulkDelete}
             >
-              批量删除
+              Bulk Delete
             </button>
           </div>
         </div>
       )}
       
-      {/* 文章列表 */}
+      {/* Article List */}
       <div className="bg-white rounded-lg shadow overflow-hidden">
         <div className="overflow-x-auto">
           <table className="min-w-full divide-y divide-gray-200">
@@ -267,22 +280,22 @@ export default function ArticlesPage() {
                   />
                 </th>
                 <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  标题
+                  Title
                 </th>
                 <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  分类
+                  Category
                 </th>
                 <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  日期
+                  Date
                 </th>
                 <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  状态
+                  Status
                 </th>
                 <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  浏览量
+                  Views
                 </th>
                 <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  操作
+                  Actions
                 </th>
               </tr>
             </thead>
@@ -309,23 +322,23 @@ export default function ArticlesPage() {
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
-                        article.status === "已发布" ? "bg-green-100 text-green-800" : "bg-yellow-100 text-yellow-800"
+                        article.status === "Published" ? "bg-green-100 text-green-800" : "bg-yellow-100 text-yellow-800"
                       }`}>
                         {article.status}
                       </span>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                      {article.views.toLocaleString()}
+                      {article.views ? article.views.toLocaleString() : '0'}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                       <Link href={`/admin/articles/edit/${article.id}`} className="text-blue-600 hover:text-blue-900 mr-4">
-                        编辑
+                        Edit
                       </Link>
                       <button
                         className="text-red-600 hover:text-red-900"
                         onClick={() => handleDelete(article.id)}
                       >
-                        删除
+                        Delete
                       </button>
                     </td>
                   </tr>
@@ -333,7 +346,7 @@ export default function ArticlesPage() {
               ) : (
                 <tr>
                   <td colSpan={7} className="px-6 py-4 text-center text-gray-500">
-                    没有找到符合条件的文章
+                    No articles found matching your criteria
                   </td>
                 </tr>
               )}

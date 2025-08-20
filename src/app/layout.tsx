@@ -1,4 +1,4 @@
-import Footer from "@/app/_components/footer";
+// 移除 Footer 导入
 import { CMS_NAME, HOME_OG_IMAGE_URL } from "@/lib/constants";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
@@ -109,7 +109,6 @@ export default function RootLayout({
         <MobileBackButton />
         
         <div className="min-h-screen">{children}</div>
-        <Footer />
         <Analytics />
         <BackToTop />
       </body>

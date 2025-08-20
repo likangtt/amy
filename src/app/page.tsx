@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Layout from '@/components/Layout';
+import { addArticleToLocalStorage } from './utils/addArticleToLocalStorage';
 
 // Function to fetch featured articles from localStorage
 function getFeaturedArticles() {
@@ -32,6 +33,46 @@ function getFeaturedArticles() {
   // Fallback articles if localStorage is empty
   return [
     {
+      id: 3,
+      title: 'Massage Chair Buying Guide 2025: Best 4D SL-Track Chairs for Home Use',
+      slug: 'massage-chair-buying-guide-2025-best-4d-sl-track-chairs-for-home-use',
+      category: 'Buying Guide',
+      date: '2025-01-01',
+      excerpt: 'Discover the best 4D SL-Track massage chairs for home use in 2025. Our comprehensive guide helps you make an informed decision.',
+      featuredImage: 'https://images.unsplash.com/photo-1545454675-3531b543be5d?ixlib=rb-4.0.3&auto=format&fit=crop&w=2340&q=80',
+      status: 'Published'
+    },
+    {
+      id: 4,
+      title: 'The Unlikely Peacemaker in the Corner of the Room',
+      slug: 'the-unlikely-peacemaker-in-the-corner-of-the-room',
+      category: 'Buying Guide',
+      date: '2025-08-16',
+      excerpt: 'Discover how a massage chair can become the unexpected mediator in your home, bringing relaxation and harmony to your living space.',
+      featuredImage: 'https://images.unsplash.com/photo-1600881333168-2ef49b341f30?ixlib=rb-4.0.3&auto=format&fit=crop&w=2340&q=80',
+      status: 'Published'
+    },
+    {
+      id: 5,
+      title: 'Top-Rated Massage Chairs: A Smart Investment in Your Well-being',
+      slug: 'top-rated-massage-chairs-a-smart-investment-in-your-well-being',
+      category: 'Buying Guide',
+      date: '2025-08-16',
+      excerpt: 'Explore why investing in a high-quality massage chair is one of the best decisions you can make for your long-term health and wellness.',
+      featuredImage: 'https://images.unsplash.com/photo-1545454675-3531b543be5d?ixlib=rb-4.0.3&auto=format&fit=crop&w=2340&q=80',
+      status: 'Published'
+    },
+    {
+      id: 6,
+      title: 'Why High-End Massage Chairs Are Worth Considering in 2025',
+      slug: 'why-high-end-massage-chairs-are-worth-considering-in-2025-lets-face-it-life-in-2025-isnt',
+      category: 'Buying Guide',
+      date: '2025-08-14',
+      excerpt: 'Let\'s face it — life in 2025 isn\'t getting any less stressful. Here\'s why a premium massage chair might be the wellness solution you need.',
+      featuredImage: 'https://images.unsplash.com/photo-1600881333168-2ef49b341f30?ixlib=rb-4.0.3&auto=format&fit=crop&w=2340&q=80',
+      status: 'Published'
+    },
+    {
       id: 1,
       title: 'How to Choose the Right Massage Chair for You',
       slug: 'how-to-choose-massage-chair',
@@ -39,6 +80,7 @@ function getFeaturedArticles() {
       date: '2023-11-01',
       excerpt: 'A comprehensive guide to help you understand the key factors to consider when buying a massage chair.',
       featuredImage: 'https://images.unsplash.com/photo-1545454675-3531b543be5d?ixlib=rb-4.0.3&auto=format&fit=crop&w=2340&q=80',
+      status: 'Published'
     },
     {
       id: 2,
@@ -48,6 +90,27 @@ function getFeaturedArticles() {
       date: '2023-10-28',
       excerpt: 'Discover the most worthwhile massage chairs on the market in 2023.',
       featuredImage: 'https://images.unsplash.com/photo-1600881333168-2ef49b341f30?ixlib=rb-4.0.3&auto=format&fit=crop&w=2340&q=80',
+      status: 'Published'
+    },
+    {
+      id: 7,
+      title: 'Proper Massage Chair Usage',
+      slug: 'proper-massage-chair-usage',
+      category: 'Usage Guide',
+      date: '2023-11-10',
+      excerpt: 'Learn how to properly use your massage chair to maximize its benefits and extend its lifespan.',
+      featuredImage: 'https://images.unsplash.com/photo-1600881333168-2ef49b341f30?ixlib=rb-4.0.3&auto=format&fit=crop&w=2340&q=80',
+      status: 'Published'
+    },
+    {
+      id: 8,
+      title: 'Massage Chair Health Benefits',
+      slug: 'massage-chair-health-benefits',
+      category: 'Usage Guide',
+      date: '2023-11-15',
+      excerpt: 'Discover the many health benefits of regular massage chair use, from stress relief to improved circulation.',
+      featuredImage: 'https://images.unsplash.com/photo-1545454675-3531b543be5d?ixlib=rb-4.0.3&auto=format&fit=crop&w=2340&q=80',
+      status: 'Published'
     }
   ];
 }
@@ -59,6 +122,9 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    // 添加新文章到localStorage
+    addArticleToLocalStorage();
+    
     // Load articles from localStorage
     const articles = getFeaturedArticles();
     setFeaturedArticles(articles);
@@ -111,6 +177,51 @@ export default function Home() {
                 Usage Guide
               </a>
             </div>
+          </div>
+        </section>
+        
+        {/* Latest Articles Section */}
+        <section className="mb-12">
+          <div className="flex justify-between items-center mb-6">
+            <h2 className="text-2xl font-bold">Latest Articles</h2>
+            <a href="/articles" className="text-blue-600 hover:underline">
+              View All Articles
+            </a>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {featuredArticles
+              .slice(0, 6)
+              .map((article: any) => (
+              <a 
+                key={article.id} 
+                href={`/articles/${article.slug}`}
+                className="group bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transform hover:-translate-y-2 transition-all duration-300 cursor-pointer"
+              >
+                {article.featuredImage && (
+                  <div className="overflow-hidden">
+                    <img 
+                      src={article.featuredImage} 
+                      alt={article.title} 
+                      className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                  </div>
+                )}
+                <div className="p-6">
+                  <span className="text-sm text-blue-600 font-medium">{article.category}</span>
+                  <h3 className="text-xl font-bold mt-1 mb-2 group-hover:text-blue-600 transition-colors duration-200">
+                    {article.title}
+                  </h3>
+                  <p className="text-gray-600 mb-4 line-clamp-3">{article.excerpt}</p>
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm text-gray-500">{new Date(article.date).toLocaleDateString('en-US')}</span>
+                    <span className="text-blue-600 group-hover:text-blue-800 font-medium transition-colors duration-200">
+                      Read More →
+                    </span>
+                  </div>
+                </div>
+              </a>
+            ))}
           </div>
         </section>
         
