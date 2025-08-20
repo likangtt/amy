@@ -1,8 +1,11 @@
+"use client";
+
+import { useState, useEffect } from 'react';
 import { Metadata } from 'next';
 import Layout from '@/components/Layout';
 
 // 获取文章数据的函数
-async function getArticleBySlug(slug: string) {
+function getArticleBySlug(slug: string) {
   // 在服务器端，我们不能直接访问localStorage
   // 这里我们需要使用一个API路由或者在客户端组件中处理
   
@@ -103,11 +106,6 @@ export async function generateStaticParams() {
     return [];
   }
 }
-
-// 文章页面组件 - 客户端组件
-"use client";
-
-import { useState, useEffect } from 'react';
 
 export default function ArticlePage({ params }: { params: { slug: string } }) {
   const [article, setArticle] = useState<any>(null);
