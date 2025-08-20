@@ -22,28 +22,29 @@ export default function ArticleClient({
         setLoading(false);
         return;
       }
-    
-    // 尝试从localStorage获取文章数据
-    try {
-      // 尝试从localStorage获取文章
-      let articlesData = localStorage.getItem('articles') || localStorage.getItem('blog_articles');
-      if (articlesData) {
-        const articles = JSON.parse(articlesData);
-        const localArticle = articles.find((a: any) => a.slug === slug);
-        
-        if (localArticle) {
-          setArticle(localArticle);
-          setLoading(false);
-          return;
+      
+      // 尝试从localStorage获取文章数据
+      try {
+        // 尝试从localStorage获取文章
+        let articlesData = localStorage.getItem('articles') || localStorage.getItem('blog_articles');
+        if (articlesData) {
+          const articles = JSON.parse(articlesData);
+          const localArticle = articles.find((a: any) => a.slug === slug);
+          
+          if (localArticle) {
+            setArticle(localArticle);
+            setLoading(false);
+            return;
+          }
         }
+      } catch (error) {
+        console.error('Error loading article from localStorage:', error);
       }
-    } catch (error) {
-      console.error('Error loading article from localStorage:', error);
-    }
-    
-    // 如果都没有找到，设置loading为false
-    setLoading(false);
-  }, [initialArticle, slug]);
+      
+      // 如果都没有找到，设置loading为false
+      setLoading(false);
+    });
+  }, [initialArticlePromise, slug]);
   
   if (loading) {
     return (
